@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Hult Prize{% endblock title%}
+{% block title %}Hult Prize{% endblock title%} 
+{%block css %}
+<style>
+  .container {
+    margin: 80px auto;
+    width: 50vw;
+  }
+</style>
+{% endblock css %}
+
 {% block body %}
 <div class="container">
-    <h3>Please click on the link send to your registered email to activate your account</h3>
+  <h3>
+    Please click on the link send to your registered email to activate your
+    account
+  </h3>
 </div>
 {% endblock body %}

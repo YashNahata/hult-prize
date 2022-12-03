@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* opacity */
+.opacity {
+  /* width: 100%; */
+  height: 100%;
+  opacity: 70%;
+  z-index: 10;
+  background-color: white;
+  position: fixed;
+  /* transition: opacity 1s ease-in; */
+}
+
+/* navbar */
+.navbar {
+  z-index: 20;
+  display: flex;
+  background-color: #f8f9fa;
+  height: 60px;
+  position: fixed;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftNavBar {
+  width: 50%;
+}
+.leftNavBar img {
+  width: 126.33px;
+}
+
+.rightNavBar {
+  width: 50%;
+  display: flex;
+  /* text-align: end; */
+  justify-content: flex-end;
+  align-items: center;
+  height: 20px;
+}
+.rightNavBar a {
+  text-decoration: none;
+  padding: 10px;
+  color: #000000a4;
+  font-weight: bold;
+}
+.rightNavBar a:hover {
+  color: rgb(230, 0, 127);
+}
+.leftBorder {
+  border-left: 5px solid rgb(230, 0, 127);
+}
+.bottomBorder {
+  border-bottom: 2px solid rgb(230, 0, 127);
+}
+.rightNavBar .activelink {
+  color: black;
+}
+.rightNavBar .activelink:hover {
+  color: black;
+}
+
+.burger {
+  width: 0px;
+  visibility: hidden;
+  z-index: 100;
+}
+.burger:hover {
+  cursor: pointer;
+}
+
+.burger .line {
+  background-color: rgb(50, 50, 50);
+  margin: 3px;
+  padding: 1.5px;
+  border-radius: 2px;
+  z-index: 100;
+}
+
+.navbar-resp {
+  z-index: 15;
+  background-color: #f8f9fa;
+  height: 265px;
+  overflow: hidden;
+  transition: height 0.7s ease-in-out;
+}
+.navbar-resp div {
+  margin-top: 50px;
+}
+.navbar-resp a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: #000000a4;
+  font-weight: bold;
+  padding: 10px;
+  margin-left: 4px;
+}
+.activelink-resp {
+  color: black;
+  border-left: 4px solid rgb(230, 0, 127);
+}
+.navbar-resp a:hover {
+  color: rgb(230, 0, 127);
+}
+.visible {
+  /* visibility: hidden; */
+  height: 0px;
+  transition: height 0.7s ease-in-out;
+}
+
+/* navbar responsive */
+@media only screen and (max-width: 970px) {
+  /* .navbar{
+        height: 60px;
+        position: fixed;
+    }
+    .navbar-resp{
+        position: fixed;
+        width: 100%;
+        margin-top: 60px;
+        height: 169px;
+    } */
+  .rightNavBar a {
+    visibility: hidden;
+  }
+  .burger {
+    width: 30px;
+    visibility: visible;
+  }
+  .activelink-resp {
+    /* color: black; */
+    border-left: 0px solid rgb(230, 0, 127);
+  }
+}

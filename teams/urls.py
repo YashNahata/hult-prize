@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup', views.handleSignUp, name="handleSignUp"),
     path('logout', views.handleLogout, name="handleLogout"),
     path('token', views.token, name="token"),
-    path('error', views.error, name="error"),
+    path('faqs', views.faqs, name="faqs"),
+    path('teamsCSV', views.teamsCSV, name="teamsCSV"),
     path('verify/<auth_token>', views.verify, name="verify"),
 ]

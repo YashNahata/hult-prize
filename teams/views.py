@@ -1,25 +1,50 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from .models import Team, TeamMember
+import uuid, csv
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
-import uuid
+from django.shortcuts import HttpResponse, redirect, render
+from .models import Team, TeamMember
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect('/dashboard')
     return render(request, 'home.html')
 
 def dashboard(request):
     if request.method == "POST":
-        #Handle team members form
-        firstName = request.POST['fname']
-        lastName = request.POST['lname']     
-        email = request.POST['signUpEmail']
-
-
+        team_name = request.POST.get('team_name')
+        update_team_name = Team.objects.filter(user=request.user).first()
+        update_team_name.team_name = team_name
+        update_team_name.save()
+        fname1 = request.POST.get('fname-1')
+        lname1 = request.POST.get('lname-1')
+        email1 = request.POST.get('email-1')
+        phone1 = request.POST.get('phone-1')
+        fname2 = request.POST.get('fname-2')
+        lname2 = request.POST.get('lname-2')
+        email2 = request.POST.get('email-2')
+        phone2 = request.POST.get('phone-2')
+        fname3 = request.POST.get('fname-3')
+        lname3 = request.POST.get('lname-3')
+        email3 = request.POST.get('email-3')
+        phone3 = request.POST.get('phone-3')
+        teamKey = Team.objects.filter(user=request.user).first()
+        TeamMember.objects.filter(team=teamKey).all().delete()
+        teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
+        teamMember2 = TeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2)
+        teamMember3 = TeamMember(team=teamKey, first_name=fname3, last_name=lname3, email=email3, phone_no=phone3)
+        teamMember1.save()
+        teamMember2.save()
+        teamMember3.save()
+        messages.success(request, 'Team data has been successfully saved')
+        # Data validation
+        
     if request.user.is_authenticated:
-        return render(request, 'dashboard.html')
+        team = Team.objects.filter(user=request.user).first()
+        team_members = TeamMember.objects.filter(team=team).all()
+        return render(request, 'dashboard.html', { 'team_members': team_members, 'team': team })
     else:
         return redirect('/')
 
@@ -41,7 +66,11 @@ def handleLogin(request):
             return redirect('/login')
         login(request, user)
         return redirect('/dashboard')
-    return render(request , 'login.html')
+    else:
+        if request.user.is_authenticated:
+            return redirect('/dashboard')
+        else:
+            return render(request, 'login.html')
 
 def handleLogout(request):
     if request.method == 'POST':
@@ -59,7 +88,7 @@ def handleSignUp(request):
         last_name = request.POST.get('last_name')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        team_name = request.POST.get('team_name')
+        phone_no = request.POST.get('phone-no')
         try:
             if User.objects.filter(username=username).first():
                 messages.warning(request, 'Username is already taken')
@@ -75,7 +104,7 @@ def handleSignUp(request):
             user.last_name = last_name
             user.save()
             auth_token = str(uuid.uuid4())
-            team = Team(user=user, auth_token=auth_token, team_name=team_name)
+            team = Team(user=user, auth_token=auth_token, leader_phone_no=phone_no)
             team.save()
             sendMail(email, auth_token)
             return redirect('/token')
@@ -83,7 +112,10 @@ def handleSignUp(request):
             messages.error(request, 'Error occured')
             return redirect('/')
     else:
-        return render(request, 'signup.html')
+        if request.user.is_authenticated:
+            return redirect('/dashboard')
+        else:
+            return render(request, 'signup.html')
 
 def token(request):
     return render(request, 'token.html')
@@ -111,5 +143,42 @@ def verify(request, auth_token):
     except Exception as e:
         return redirect('/')
 
-def error(request):
-    return  render(request, 'error.html')
+def teamsCSV(request):
+    if request.user.username == 'admin':
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="teams.csv"'
+        writer = csv.writer(response)
+        writer.writerow(
+                [
+                    "Team name",
+                    "Team Members",
+                    "Email",
+                    "Phone No."
+                ]
+            )
+        for team in Team.objects.all():
+            writer.writerow(
+                [
+                    team.team_name,
+                    team.user.first_name + " " + team.user.last_name + " " + "(Leader)",
+                    team.user.email,
+                    team.leader_phone_no
+                ]
+            )
+            team_members = TeamMember.objects.filter(team=team).all()
+            for team_member in team_members:
+                writer.writerow(
+                    [
+                        team.team_name,
+                        team_member.first_name + " " + team_member.last_name,
+                        team_member.email,
+                        team_member.phone_no
+                    ]
+                )
+            writer.writerow([])
+        return response
+    else:
+        return redirect('/')
+
+def faqs(request):
+    return render(request, 'faqs.html')

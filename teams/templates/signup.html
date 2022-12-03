@@ -1,60 +1,98 @@
-{% extends 'base.html' %}
-{% block title %}Hult Prize - Sign Up{% endblock title%}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Hult Prize - Sign Up{% endblock title%} 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+{% endblock css %} 
+
 {% block body %}
-{% if user.is_authenticated %}
-<h1>Logout to sign up</h1>
-{% else %}
-<div class="container my-2">
-  <h1>Sign Up</h1>
-  <form class="my-2" action="/signup" method="POST">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username" name="username" />
+<div class="signup-box">
+  <div class="wrapper">
+    <img id="logo" src="{% static 'assets/hultPrizeLogo.png' %}" />
+    <div class="title-text">
+      <div class="title login">Sign in</div>
     </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Team Leader - Email address</label>
-      <input type="email" class="form-control" id="email" name="email" />
+    <div class="form-container">
+      <div class="form-inner">
+        <form action="/signup" class="login" method="POST">
+          {% csrf_token %}
+          <div class="field">
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="flexbox">
+            <div class="field marginright">
+              <input
+                type="text"
+                class="width50"
+                placeholder="First Name"
+                id="first_name"
+                name="first_name"
+              />
+            </div>
+            <div class="spacex"></div>
+            <div class="field marginleft">
+              <input
+                type="text"
+                class="width50"
+                placeholder="Last Name"
+                id="last_name"
+                name="last_name"
+              />
+            </div>
+          </div>
+          <div class="space"></div>
+          <div class="field">
+            <input
+              type="email"
+              placeholder="Email Address"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="space"></div>
+          <div class="field">
+            <input
+              type="text"
+              placeholder="Phone No."
+              id="phone-no"
+              name="phone-no"
+              required
+            />
+          </div>
+          <div class="space"></div>
+          <div class="field">
+            <input
+              type="password"
+              placeholder="Password"
+              id="password1"
+              name="password1"
+              required
+            />
+          </div>
+          <div class="space"></div>
+          <div class="field">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              id="password2"
+              name="password2"
+              required
+            />
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Sign in" id="btnLogin" />
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="first_name" class="form-label"
-        >Team Leader - First Name</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="first_name"
-        name="first_name"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="last_name" class="form-label">Team Leader - Last Name</label>
-      <input type="text" class="form-control" id="last_name" name="last_name" />
-    </div>
-    <div class="mb-3">
-      <label for="team_name" class="form-label">Team Name</label>
-      <input type="text" class="form-control" id="team_name" name="team_name" />
-    </div>
-    <div class="mb-3">
-      <label for="password1" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password1"
-        name="password1"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="password2" class="form-label">Confirm Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password2"
-        name="password2"
-      />
-    </div>
-    <button type="submit" class="btn btn-dark">Submit</button>
-  </form>
+  </div>
 </div>
-{% endif %}
 {% endblock body %}

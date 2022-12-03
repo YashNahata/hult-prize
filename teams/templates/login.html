@@ -1,34 +1,51 @@
-{% extends 'base.html' %}
-{% block title %}Hult Prize - Login{% endblock title%}
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Hult Prize - Login{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock css %}
+
 {% block body %}
-{% if user.is_authenticated %}
-<h1>Already logged in</h1>
-{% else %}
-<div class="container my-2">
-  <h1>Login</h1>
-  <form class="my-2" action="/login" method="POST">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input
-        type="text"
-        class="form-control"
-        id="username"
-        name="username"
-        aria-describedby="emailHelp"
-      />
+<div class="login-box">
+  <div class="wrapper">
+    <img id="logo" src="{% static 'assets/hultPrizeLogo.png' %}" />
+    <div class="title-text">
+      <div class="title login">Login</div>
     </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        name="password"
-      />
+    <div class="form-container">
+      <div class="form-inner">
+        <form action="/login" method="POST" class="login">
+          {% csrf_token %}
+          <div class="field">
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="space"></div>
+          <div class="field">
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login" id="btnLogin" />
+          </div>
+
+          <div class="signup-link">
+            Not a member? <a href="/signup">Signup now</a>
+          </div>
+        </form>
+      </div>
     </div>
-    <button type="submit" class="btn btn-dark">Submit</button>
-  </form>
+  </div>
 </div>
-{% endif %}
 {% endblock body %}
