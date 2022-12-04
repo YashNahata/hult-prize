@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, TeamMember, FAQs
+from .models import Team, TeamMember, Faq, Speaker
 
 # Register your models here.
-admin.site.register((Team, TeamMember, FAQs))
+admin.site.register((Team, TeamMember, Faq, Speaker))

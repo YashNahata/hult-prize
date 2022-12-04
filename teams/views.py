@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
-from .models import Team, TeamMember, FAQs
+from .models import Team, TeamMember, Faq, Speaker
 
 def home(request):
     if request.user.is_authenticated:
@@ -182,5 +182,9 @@ def teamsCSV(request):
         return redirect('/')
 
 def faqs(request):
-    faqs = FAQs.objects.all()
+    faqs = Faq.objects.all()
     return render(request, 'faqs.html', { 'faqs': faqs })
+
+def speakers(request):
+    speakers = Speaker.objects.all()
+    return render(request, 'speakers.html', { 'speakers': speakers })

@@ -85,7 +85,7 @@
 .navbar-resp {
   z-index: 15;
   background-color: #f8f9fa;
-  height: 265px;
+  height: 315px;
   overflow: hidden;
   transition: height 0.7s ease-in-out;
 }
