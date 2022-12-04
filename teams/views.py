@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
-from .models import Team, TeamMember
+from .models import Team, TeamMember, FAQs
 
 def home(request):
     if request.user.is_authenticated:
@@ -20,16 +20,19 @@ def dashboard(request):
         update_team_name.save()
         fname1 = request.POST.get('fname-1')
         lname1 = request.POST.get('lname-1')
-        email1 = request.POST.get('email-1')
+        email1 = request.POST.get('email-1').strip()
         phone1 = request.POST.get('phone-1')
         fname2 = request.POST.get('fname-2')
         lname2 = request.POST.get('lname-2')
-        email2 = request.POST.get('email-2')
+        email2 = request.POST.get('email-2').strip()
         phone2 = request.POST.get('phone-2')
         fname3 = request.POST.get('fname-3')
         lname3 = request.POST.get('lname-3')
-        email3 = request.POST.get('email-3')
+        email3 = request.POST.get('email-3').strip()
         phone3 = request.POST.get('phone-3')
+        if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
+            messages.error(request, 'Atleast two members are required')
+            return redirect('/')
         teamKey = Team.objects.filter(user=request.user).first()
         TeamMember.objects.filter(team=teamKey).all().delete()
         teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
@@ -38,9 +41,7 @@ def dashboard(request):
         teamMember1.save()
         teamMember2.save()
         teamMember3.save()
-        messages.success(request, 'Team data has been successfully saved')
-        # Data validation
-        
+        messages.success(request, 'Data has been successfully saved')
     if request.user.is_authenticated:
         team = Team.objects.filter(user=request.user).first()
         team_members = TeamMember.objects.filter(team=team).all()
@@ -181,4 +182,5 @@ def teamsCSV(request):
         return redirect('/')
 
 def faqs(request):
-    return render(request, 'faqs.html')
+    faqs = FAQs.objects.all()
+    return render(request, 'faqs.html', { 'faqs': faqs })

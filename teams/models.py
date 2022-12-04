@@ -19,3 +19,9 @@ class TeamMember(models.Model):
     email = models.EmailField()
     def __str__(self):
         return self.team.team_name + " - " + self.first_name + " " + self.last_name
+
+class FAQs(models.Model):
+    question = models.CharField(max_length=200)
+    answer = models.CharField(max_length=400)
+    def __str__(self):
+        return "FAQ | " + self.question
