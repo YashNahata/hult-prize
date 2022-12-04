@@ -1,0 +1,26 @@
+.heading{
+    font-weight: 600;
+}
+
+/* bootstrap overwrite */
+.container-accordion{
+    margin: auto;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.accordion-body{
+    font-size: small;
+}
+.accordion-button:focus{
+    box-shadow: none;
+    border-color: rgb(230, 0, 127);
+}
+.accordion-button{
+    background-color: rgba(215, 215, 215, 0.267);
+}
+.accordion-button:not(.collapsed){
+    background-color: rgba(176, 176, 176, 0.361);
+    color: black;
+}
