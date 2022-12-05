@@ -1,0 +1,173 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Hult Prize - Dashboard{% endblock title %}
+{% block css %}
+<style>
+  #preloader{
+  background: white url("{%static 'assets/spinner-gif.gif' %}") no-repeat center center;
+  background-size: 10%;
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
+</style>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="{% static 'css/displayTeams.css' %}" />
+{% endblock css %}
+
+{% block body %}
+<!-- preloader -->
+<div id="preloader"></div>
+<form action="/dashboard" method="POST">
+    {% csrf_token %}
+
+<div class="container">
+    <div class="button createBtn">
+        <button> 
+            <div>
+               <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            Create Team
+        </button>
+    </div>
+    <div class="flex">
+
+        <!-- card -->
+        <div class="card">
+            <div class="title">
+                <div class="badge badge-leader">
+                    <label for="team_name" class="form-label">
+                        Team Name
+                    </label> 
+                    <input type="text"
+                    class="custom-input"
+                    id="team_name"
+                    name="team_name"
+                    value="{{ team.team_name }}"
+                    />
+                </div>
+
+                <div class="button">
+                    <button disabled>
+                        <!-- <i class="fa-solid fa-pen-to-square"></i> -->
+                        Join Team
+                    </button>
+                </div>
+            </div>
+                <div class="leader">
+                    <p class="leader-name">Team Leader Name</p>
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div class="teamMembers">
+                    <p class="name">Member1</p>
+                    <p class="name">Member2</p>
+                    <p class="name">Member3</p>
+                </div>
+        </div>
+
+        <!-- card -->
+        <div class="card">
+            <div class="title">
+                <div class="badge badge-leader">
+                    <p>Team Name</p>
+                </div>
+
+                <div class="button">
+                    <button>
+                        <!-- <i class="fa-solid fa-pen-to-square"></i> -->
+                        Join Team
+                    </button>
+                </div>
+            </div>
+                <div class="leader">
+                    <p class="leader-name">Team Leader Name</p>
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div class="teamMembers">
+                    <p class="name">Member1</p>
+                    <p class="name">Member2</p>
+                    <p class="name">Member3</p>
+                </div>
+        </div>
+        
+    </div>
+
+    <!-- row 2 -->
+    <div class="flex">
+
+        <!-- card -->
+        <div class="card">
+            <div class="title">
+                <div class="badge badge-leader">
+                    <p>Team Name</p>
+                </div>
+
+                <div class="button">
+                    <button>
+                        <!-- <i class="fa-solid fa-pen-to-square"></i> -->
+                        Join Team
+                    </button>
+                </div>
+            </div>
+                <div class="leader">
+                    <p class="leader-name">Team Leader Name</p>
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div class="teamMembers">
+                    <p class="name">Member1</p>
+                    <p class="name">Member2</p>
+                    <p class="name">Member3</p>
+                </div>
+        </div>
+
+        <!-- card -->
+        <div class="card">
+            <div class="title">
+                <div class="badge badge-leader">
+                    <p>Team Name</p>
+                </div>
+
+                <div class="button">
+                    <button>
+                        <!-- <i class="fa-solid fa-pen-to-square"></i> -->
+                        Join Team
+                    </button>
+                </div>
+            </div>
+                <div class="leader">
+                    <p class="leader-name">Team Leader Name</p>
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div class="teamMembers">
+                    <p class="name">Member1</p>
+                    <p class="name">Member2</p>
+                    <p class="name">Member3</p>
+                </div>
+        </div>
+        
+    </div>
+    
+</div>
+</form>
+
+{% endblock body %}
+
+{% block script %}
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+  integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+  crossorigin="anonymous"
+></script>
+{% endblock script %}
