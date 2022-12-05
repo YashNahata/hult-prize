@@ -1,15 +1,41 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Hult Prize - FAQs{% endblock title%} 
-{%block css %}
+{% block title %}Hult Prize - FAQs{% endblock title %}
+{% block css %}
 <link rel="stylesheet" href="{% static 'css/faqs.css' %}" />
-{% endblock css %}
-
+<style>
+  #preloader {
+    background: white url("{%static 'assets/spinner-gif.gif' %}") no-repeat
+      center center;
+    background-size: 10%;
+    z-index: 100;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+  }
+</style>
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+  crossorigin="anonymous"
+/>
+<!-- favicons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="{%static 'css/home.css'%}" />
+<link rel="stylesheet" href="{%static 'css/faqs.css'%}" />
+{% endblock css %} 
 {% block body %}
+<!-- preloader -->
+<div id="preloader"></div>
+
+<section>
+
 <div class="container">
-  <h3>
-    FAQs
-  </h3>
+  <h3>FAQs</h3>
   {% for faq in faqs %}
   <div>
     <p>{{ faq.question }}</p>
@@ -17,4 +43,89 @@
   </div>
   {% endfor %}
 </div>
+
+</section>
+
+<!-- footer -->
+<footer class="footer">
+  <div class="leftFooter">
+    <div class="leftFooterContent">
+      <h2>
+        Entrepreneurship <br />
+        Development Cell
+      </h2>
+      <h3>Nit Durgapur</h3>
+    </div>
+    <p>
+      Made with <i class="fa fa-heart" aria-hidden="true"></i> by Web-Team
+      <br />© 2022 EDC. All Rights Reserved.
+    </p>
+  </div>
+
+  <div class="middleFooter">
+    <div class="bottomBorder">
+      <h2>CONTACT US</h2>
+    </div>
+    <p>
+      <i class="fa fa-map-marker"></i> : Mahatma Gandhi Avenue,<br />
+      A-Zone, Durgapur, West Bengal <br />
+      Durgapur: 713209
+      <br />
+      <i class="fa fa-phone"></i> : +91 82503 23647 (Sukanya Dutta)
+      <br />
+      <i class="fa fa-envelope-o"></i> : edc@nitdgp.ac.in
+    </p>
+    <div class="socials">
+      <div class="circle" id="twitter">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          ><i id="twitter-icon" class="fa fa-twitter"></i
+        ></a>
+      </div>
+      <div class="circle" id="fb">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          ><i id="fb-icon" class="fa fa-facebook"></i
+        ></a>
+      </div>
+      <div class="circle" id="insta">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          ><i id="insta-icon" class="fa fa-instagram"></i
+        ></a>
+      </div>
+      <div class="circle" id="yt">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          ><i id="yt-icon" class="fa fa-youtube"></i
+        ></a>
+      </div>
+      <div class="circle" id="linkedin">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          ><i id="linkedin-icon" class="fa fa-linkedin"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="rightFooter">
+    <div class="bottomBorder">
+      <h2>USEFUL LINKS</h2>
+    </div>
+    <div class="usefulLinks">
+      <ul>
+        <li><a href="#" target="_blank" rel="noopener noreferrer">Home</a></li>
+      </ul>
+      <ul>
+        <li>
+          <a href="/FAQs.html" target="_blank" rel="noopener noreferrer"
+            >FAQs</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+  crossorigin="anonymous"
+></script>
+<!-- <script src="../JavaScript/index.js"></script> -->
 {% endblock body %}
