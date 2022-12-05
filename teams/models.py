@@ -9,6 +9,7 @@ class Team(models.Model):
     team_name = models.CharField(max_length=100)
     leader_phone_no = models.CharField(max_length=10)
     can_request = models.BooleanField(default=True)
+    can_request_timestamp = models.DateTimeField(auto_now_add=True, blank=True)
     def __str__(self):
         return self.user.username + " | " + self.team_name
 

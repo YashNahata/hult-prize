@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
 from .models import Team, TeamMember, Faq, Speaker
+from datetime import datetime
 
 def home(request):
     if request.user.is_authenticated:
@@ -194,7 +195,6 @@ def joinTeam(request):
         auth_token = request.POST.get('auth_token')
         team = Team.objects.filter(auth_token=auth_token).first()
         team_leader_email = team.user.email
-
         if team.can_request == True:
             subject = 'Request to join your team'
             message = f'I would like to join your team. \n Name - {request.user.first_name + " " + request.user.last_name} \n Email - {request.user.email} \n Phone No. - {team.leader_phone_no}'
@@ -202,16 +202,30 @@ def joinTeam(request):
             recipient_list = [team_leader_email]
             send_mail(subject, message, email_from, recipient_list)
             team.can_request = False
+            team.can_request_timestamp = datetime.now()
             team.save()
             messages.success(request, 'Your request has been sent')
             return redirect('/join-team')
         else:
+            team_timestamp = team.can_request_timestamp.date()
+            date_now = datetime.now().date()
+            delta = date_now - team_timestamp
+            if delta.days >= 1:
+                subject = 'Request to join your team'
+                message = f'I would like to join your team. \n Name - {request.user.first_name + " " + request.user.last_name} \n Email - {request.user.email} \n Phone No. - {team.leader_phone_no}'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [team_leader_email]
+                send_mail(subject, message, email_from, recipient_list)
+                team.can_request = False
+                team.can_request_timestamp = datetime.now()
+                team.save()
+                messages.success(request, 'Your request has been sent')
+                return redirect('/join-team')
             messages.error(request, 'Request can been sent only once')
             return redirect('/join-team')
-
     else:
         if request.user.is_authenticated:
-            teams = Team.objects.all()
+            teams = Team.objects.exclude(user=request.user)
             data = []
             for team in teams:
                 team_member = TeamMember.objects.filter(team=team).all()
