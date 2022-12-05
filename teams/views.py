@@ -9,10 +9,10 @@ from .models import Team, TeamMember, Faq, Speaker
 
 def home(request):
     if request.user.is_authenticated:
-        return redirect('/dashboard')
+        return redirect('/create-team')
     return render(request, 'home.html')
 
-def dashboard(request):
+def createTeam(request):
     if request.method == "POST":
         team_name = request.POST.get('team_name')
         update_team_name = Team.objects.filter(user=request.user).first()
@@ -45,7 +45,7 @@ def dashboard(request):
     if request.user.is_authenticated:
         team = Team.objects.filter(user=request.user).first()
         team_members = TeamMember.objects.filter(team=team).all()
-        return render(request, 'dashboard.html', { 'team_members': team_members, 'team': team })
+        return render(request, 'create-team.html', { 'team_members': team_members, 'team': team })
     else:
         return redirect('/')
 
@@ -66,10 +66,10 @@ def handleLogin(request):
             messages.error(request, 'Wrong password or username')
             return redirect('/login')
         login(request, user)
-        return redirect('/dashboard')
+        return redirect('/create-team')
     else:
         if request.user.is_authenticated:
-            return redirect('/dashboard')
+            return redirect('/create-team')
         else:
             return render(request, 'login.html')
 
@@ -114,7 +114,7 @@ def handleSignUp(request):
             return redirect('/')
     else:
         if request.user.is_authenticated:
-            return redirect('/dashboard')
+            return redirect('/create-team')
         else:
             return render(request, 'signup.html')
 
@@ -188,3 +188,41 @@ def faqs(request):
 def speakers(request):
     speakers = Speaker.objects.all()
     return render(request, 'speakers.html', { 'speakers': speakers })
+
+def joinTeam(request):
+    if request.method == 'POST':
+        auth_token = request.POST.get('auth_token')
+        team = Team.objects.filter(auth_token=auth_token).first()
+        team_leader_email = team.user.email
+
+        if team.can_request == True:
+            subject = 'Request to join your team'
+            message = f'I would like to join your team. \n Name - {request.user.first_name + " " + request.user.last_name} \n Email - {request.user.email} \n Phone No. - {team.leader_phone_no}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [team_leader_email]
+            send_mail(subject, message, email_from, recipient_list)
+            team.can_request = False
+            team.save()
+            messages.success(request, 'Your request has been sent')
+            return redirect('/join-team')
+        else:
+            messages.error(request, 'Request can been sent only once')
+            return redirect('/join-team')
+
+    else:
+        if request.user.is_authenticated:
+            teams = Team.objects.all()
+            data = []
+            for team in teams:
+                team_member = TeamMember.objects.filter(team=team).all()
+                data.append({
+                    'team_name':team.team_name,
+                    'leader': team.user.first_name + " " + team.user.last_name,
+                    'auth_token': team.auth_token
+                })
+                data.append({
+                    team_member
+                })
+            return render(request, 'join-team.html', { 'data': data })
+        else:
+            return redirect('/')
