@@ -1,4 +1,9 @@
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
 /* opacity */
 .opacity {
@@ -33,7 +38,7 @@
 
 .rightNavBar {
   width: 50%;
-  /* display: flex; */
+  display: flex;
   text-align: end;
   justify-content: flex-end;
   align-items: center;
