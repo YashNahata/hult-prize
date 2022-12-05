@@ -1,12 +1,12 @@
 let loader = document.getElementById("preloader");
 
-window.setTimeout(() => {
-    loader.style.display = "none";
-}, 2000);
-
-// window.addEventListener('load', ()=>{
+// window.setTimeout(() => {
 //     loader.style.display = "none";
-// })
+// }, 2000);
+
+window.addEventListener('load', ()=>{
+    loader.style.display = "none";
+})
 
 let navbarResp = document.getElementById("navbar-resp");
 let opacity = document.getElementById("opacity");
@@ -16,7 +16,7 @@ let line2 = document.getElementById("line-2");
 let line3 = document.getElementById("line-3");
 
 burger.addEventListener('click', () =>{
-    // console.log("visible")
+    console.log("visible")
     navbarResp.classList.toggle("visible");
     opacity.classList.toggle("opacity");
 });

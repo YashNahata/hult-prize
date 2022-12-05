@@ -1,8 +1,21 @@
 .login-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 4rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  /* place-items: center;  */
+  background-image: url("../images/banner1.jpg");
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* background-color: rgb(230, 0, 127); */
+
+
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  margin-top: 0rem;
   height: 100vh;
   width: 100%;
   background-repeat: no-repeat;
