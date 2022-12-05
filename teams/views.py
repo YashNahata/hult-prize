@@ -232,10 +232,8 @@ def joinTeam(request):
                 data.append({
                     'team_name':team.team_name,
                     'leader': team.user.first_name + " " + team.user.last_name,
-                    'auth_token': team.auth_token
-                })
-                data.append({
-                    team_member
+                    'auth_token': team.auth_token,
+                    'team_member': team_member
                 })
             return render(request, 'join-team.html', { 'data': data })
         else:

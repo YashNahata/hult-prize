@@ -2,6 +2,17 @@
 {% load static %} 
 {% block title %}Hult Prize - Create Team{% endblock title %}
 {% block css %}
+<style>
+  #preloader{
+  background: white url("{%static 'assets/spinner-gif.gif' %}") no-repeat center center;
+  background-size: 10%;
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
+</style>
+
 <link
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
   rel="stylesheet"
@@ -30,6 +41,10 @@
 </div>
 
 <form action="/create-team" method="POST">
+<!-- preloader -->
+<div id="preloader"></div>
+
+<form action="/dashboard" method="POST">
   {% csrf_token %}
   <!-- team name -->
   <div class="container my-4">
