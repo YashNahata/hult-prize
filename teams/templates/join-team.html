@@ -23,6 +23,18 @@
 {% endblock css %}
 
 {% block body %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message : </strong> {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+{% endfor %}
 <!-- preloader -->
 <div id="preloader"></div>
 
@@ -31,6 +43,9 @@
     <div class="button createBtn">
         <a href="/create-team">
             Create Team
+        </a>
+        <a href="/my-team">
+          My Team
         </a>
     </div>
 

@@ -1,0 +1,78 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Hult Prize - My Team{% endblock title %}
+{% block css %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+  crossorigin="anonymous"
+/>
+<style>
+    #preloader{
+    background: white url("{%static 'assets/spinner-gif.gif' %}") no-repeat center center;
+    background-size: 10%;
+    z-index: 100;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+  }
+  .card-header {
+    background-color: rgb(230, 0, 127);
+    color: white;
+  }
+  </style>
+{% endblock css %}
+
+{% block body %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message : </strong> {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+{% endfor %}
+<!-- preloader -->
+<div id="preloader"></div>
+
+<div class="container">
+    
+    {% for mt in my_team %}
+    <h2 class="mx-auto my-5">My Team</h2>
+    <div class="card my-3" style="width: 18rem;">
+        <div class="card-header">
+        {{ mt.team_name }}
+        </div>
+        <ul class="list-group list-group-flush">
+        {% if mt.team_leader|length > 0 %}
+        <li class="list-group-item">{{ mt.team_leader }}</li>
+        {% endif %}
+        {% for tm in mt.team_members %}
+        {% if tm.first_name|length > 0 %}
+        <li class="list-group-item">{{ tm.first_name }} {{ tm.last_name }}</li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+  integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+  crossorigin="anonymous"
+></script>
+{% endblock script %}
