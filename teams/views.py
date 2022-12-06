@@ -10,7 +10,7 @@ from datetime import datetime
 
 def home(request):
     if request.user.is_authenticated:
-        return redirect('/create-team')
+        return redirect('/join-team')
     return render(request, 'home.html')
 
 def createTeam(request):
@@ -67,10 +67,10 @@ def handleLogin(request):
             messages.error(request, 'Wrong password or username')
             return redirect('/login')
         login(request, user)
-        return redirect('/create-team')
+        return redirect('/join-team')
     else:
         if request.user.is_authenticated:
-            return redirect('/create-team')
+            return redirect('/join-team')
         else:
             return render(request, 'login.html')
 
@@ -194,20 +194,21 @@ def joinTeam(request):
     if request.method == 'POST':
         auth_token = request.POST.get('auth_token')
         team = Team.objects.filter(auth_token=auth_token).first()
+        team_from = Team.objects.filter(user=request.user).first()
         team_leader_email = team.user.email
-        if team.can_request == True:
+        if team_from.can_request == True:
             subject = 'Request to join your team'
             message = f'I would like to join your team. \n Name - {request.user.first_name + " " + request.user.last_name} \n Email - {request.user.email} \n Phone No. - {team.leader_phone_no}'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [team_leader_email]
             send_mail(subject, message, email_from, recipient_list)
-            team.can_request = False
-            team.can_request_timestamp = datetime.now()
-            team.save()
+            team_from.can_request = False
+            team_from.can_request_timestamp = datetime.now()
+            team_from.save()
             messages.success(request, 'Your request has been sent')
             return redirect('/join-team')
         else:
-            team_timestamp = team.can_request_timestamp.date()
+            team_timestamp = team_from.can_request_timestamp.date()
             date_now = datetime.now().date()
             delta = date_now - team_timestamp
             if delta.days >= 1:
@@ -216,12 +217,12 @@ def joinTeam(request):
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [team_leader_email]
                 send_mail(subject, message, email_from, recipient_list)
-                team.can_request = False
-                team.can_request_timestamp = datetime.now()
-                team.save()
-                messages.success(request, 'Your request has been sent')
+                team_from.can_request = False
+                team_from.can_request_timestamp = datetime.now()
+                team_from.save()
+                messages.success(request, 'Your R to join the team has been sent. Please wait for the leader to accept it')
                 return redirect('/join-team')
-            messages.error(request, 'Request can been sent only once')
+            messages.error(request, 'Request can been sent only once in 24 hours')
             return redirect('/join-team')
     else:
         if request.user.is_authenticated:
