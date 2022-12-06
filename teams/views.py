@@ -9,8 +9,10 @@ from .models import Team, TeamMember, Faq, Speaker
 from datetime import datetime
 
 def home(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Team.objects.filter(user=request.user).first().is_leader == False:
         return redirect('/join-team')
+    if request.user.is_authenticated:
+        return redirect('/create-team')
     return render(request, 'home.html')
 
 def createTeam(request):
@@ -259,3 +261,26 @@ def joinTeam(request):
                 return redirect('/create-team')
         else:
             return redirect('/')
+
+def myTeam(request):
+    myData = TeamMember.objects.filter(email=request.user.email).first()
+    if myData is None:
+        myData = Team.objects.filter(user=request.user).first()
+        team_data = TeamMember.objects.filter(team=myData)
+        team_name = myData.team_name
+        team_leader = myData.user.first_name + " " + myData.user.last_name
+        data = []
+        data.append({
+            'team_name': team_name,
+            'team_leader': team_leader,
+            'team_members': team_data
+        })
+    else:
+        team_data = TeamMember.objects.filter(team=myData.team)
+        team_name = myData.team.team_name
+        data = []
+        data.append({
+            'team_name': team_name,
+            'team_members': team_data
+        })
+    return render(request, 'my-team.html', { 'my_team': data })
