@@ -12,11 +12,16 @@
   position: fixed;
 }
 </style>
-<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
+<!-- swiper css -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+/>
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock css %}
 
 {% block body %}
@@ -67,6 +72,156 @@
     </div>
   </div>
 </section>
+
+  <!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+
+      <!-- slide 1 -->
+      <div class="swiper-slide">
+          <div class="swiperImg">
+              <a href="https://www.instagram.com/p/Ca17rJDPTZV/" target="_blank">
+                  <img class="imgTransition" id="imgTransition" src="{% static 'assets/Trouvaillieur.png' %}" alt="">
+              </a>
+          </div>
+          <div class="swiperContent">
+              <div class="title">
+                  <h2>2021</h2>
+                  <h3>Winners</h3>
+              </div>
+              <p class="contentTransition" id="contentTransition">
+                  Team EDC is proud to announce Team "Trouvailleur" as the Winner of HULT Prize '22, 
+                  OnCampus Round, NIT Durgapur. The team comprised of 1st year students, namely 
+                  Hiya Aidasani, Aditya Agarwal, Debanjan Bhattacharjee and Kshitiz Chadha. 
+                  Their idea involves the integration of real and 
+                  virtual tourism, and thus providing employments for local communities.
+              </p>
+              
+          </div>
+      </div>
+
+      <!-- slide 2 -->
+      <div class="swiper-slide">
+          <div class="swiperImg">
+              <a href="https://www.instagram.com/p/Ca16tjAPxv0/" target="_blank">
+                  <img class="imgTransition" id="imgTransition" src="{% static 'assets/AAKARSH.png' %}" alt="">
+              </a>
+          </div>
+          <div class="swiperContent">
+              <div class="title">
+                  <h2>2021</h2>
+                  <h3>RunnerUps</h3>
+              </div>
+              <p class="contentTransition" id="contentTransition">
+                Team EDC is proud to announce Team "Aakarsh" as the Joint Runner Up of HULT Prize '22, 
+                OnCampus Round, NIT Durgapur. The team comprised of 1st year students, namely Priyanshu Bartwal, 
+                Anshu Agarwal, Liza Gupta and Bedabrata Brahma. Their idea involves the revival of the 
+                captivating collection of lost Indian culture and providing the local artisans, a platform to manufacture
+                products and art in old traditional ways along with a ready market.
+              </p>
+              
+          </div>
+      </div>
+
+      <!-- slide 3 -->
+      <div class="swiper-slide">
+        <div class="swiperImg">
+            <a href="https://www.instagram.com/p/Ca17D6ePz-f/" target="_blank">
+                <img class="imgTransition" id="imgTransition" src="{% static 'assets/Homely Bites.png' %}" alt="">
+            </a>
+        </div>
+        <div class="swiperContent">
+            <div class="title">
+                <h2>2021</h2>
+                <h3>RunnerUps</h3>
+            </div>
+            <p class="contentTransition" id="contentTransition">
+              Team EDC is proud to announce Team "Aakarsh" as the Joint Runner Up of HULT Prize '22, 
+              OnCampus Round, NIT Durgapur. The team comprised of 1st year students, namely Priyanshu Bartwal, 
+              Anshu Agarwal, Liza Gupta and Bedabrata Brahma. Their idea involves the revival of the 
+              captivating collection of lost Indian culture and providing the local artisans, a platform to manufacture
+               products and art in old traditional ways along with a ready market.
+            </p>
+            
+        </div>
+      </div>
+
+      <!-- slide 4 -->
+      <div class="swiper-slide">
+        <div class="swiperImg">
+            <a href="https://www.instagram.com/p/CI0sqR-jmD6/" target="_blank">
+                <img class="imgTransition" id="imgTransition" src="{% static 'assets/Vikaar.jpg' %}" alt="">
+            </a>
+        </div>
+        <div class="swiperContent">
+            <div class="title">
+                <h2>2019</h2>
+                <h3>Winners</h3>
+            </div>
+            <p class="contentTransition" id="contentTransition">
+              Team 'Vikaar' was adjudged the Winners at the first Hult Prize OnCampus Finals at NIT Durgapur. 
+              Comprising of 2nd year students, Abha Jha, Ankit Rai, Ritabrata Ganguly and Sebontika Bose, 
+              their idea was based on the use of surplus grain and properly channelling it into useful 
+              products and food items.
+              The uniqueness and creativity in their idea really impressed the judges who unanimously 
+              declared them the winners.
+            </p>
+            
+        </div>
+      </div>
+
+      <!-- slide 5 -->
+      <div class="swiper-slide">
+        <div class="swiperImg">
+            <a href="https://www.instagram.com/p/CI0oPdGj1pH/" target="_blank">
+                <img class="imgTransition" id="imgTransition" src="{% static 'assets/Sahara.jpg' %}" alt="">
+            </a>
+        </div>
+        <div class="swiperContent">
+            <div class="title">
+                <h2>2019</h2>
+                <h3>RunnerUps</h3>
+            </div>
+            <p class="contentTransition" id="contentTransition">
+              Team 'Sahara' was adjudged the 1st Runner-up at the first Hult Prize OnCampus Finals at 
+              NIT Durgapur. Comprising of 1st year students, Purvi Binani, Shruti Sharma, Zoya Ahmed and 
+              Sudeshna Saha, their idea revolves around setting up 'Healthy Vending' machines to provide 
+              nutritious meals using produce from nearby farms to cater to the needs of corporate sectors, 
+              colleges and hospitals.
+            </p>
+            
+        </div>
+      </div>
+
+      <!-- slide 6 -->
+      <div class="swiper-slide">
+        <div class="swiperImg">
+            <a href="https://www.instagram.com/p/CI0gK19Dji0/" target="_blank">
+                <img class="imgTransition" id="imgTransition" src="{% static 'assets/Morph.jpg' %}" alt="">
+            </a>
+        </div>
+        <div class="swiperContent">
+            <div class="title">
+                <h2>2019</h2>
+                <h3>RunnerUps</h3>
+            </div>
+            <p class="contentTransition" id="contentTransition">
+              Team 'Morph' was adjudged the 2nd Runner-up at the first Hult Prize OnCampus Finals at 
+              NIT Durgapur. Comprising of 2nd year students, Devansh Goyal, Raj Gaurav, Aniket Verma and 
+              Pushpanjali Bharti, their idea was to directly link farmers with local restaurants, thus 
+              eliminating the middlemen in between and creating value and empowerment for both the farmers 
+              and the local restaurants.
+            </p>
+            
+        </div>
+      </div>
+
+  </div>
+  <div class="swiper-button-next swiperBtn" id="autoClick"></div>
+  <div class="swiper-button-prev swiperBtn"></div>
+  <div class="swiper-pagination"></div>
+  </div>
+
 <!-- footer -->
 <footer class="footer">
   <div class="leftFooter">
@@ -141,4 +296,10 @@
     </div>
   </div>
 </footer>
+{% block script %}
+<!-- swiper -->
+<script src="{%static 'js/home.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="{%static 'js/swiper.js' %}"></script>
+{% endblock script %}
 {% endblock body %}
