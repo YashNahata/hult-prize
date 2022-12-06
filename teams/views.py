@@ -31,10 +31,17 @@ def createTeam(request):
         lname3 = request.POST.get('lname-3')
         email3 = request.POST.get('email-3').strip()
         phone3 = request.POST.get('phone-3')
+        teamKey = Team.objects.filter(user=request.user).first()
+        if ((email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == '')) and Team.objects.filter(user=request.user).first().is_leader == True:
+            messages.warning(request, 'Team deleted. Now you can join other team or create again')
+            TeamMember.objects.filter(team=teamKey).all().delete()
+            is_team_leader = Team.objects.filter(user=request.user).first()
+            is_team_leader.is_leader = False
+            is_team_leader.save()
+            return redirect('/')
         if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
             messages.error(request, 'Atleast two members are required')
-            return redirect('/')
-        teamKey = Team.objects.filter(user=request.user).first()
+            return redirect('/create-team')
         TeamMember.objects.filter(team=teamKey).all().delete()
         teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
         teamMember2 = TeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2)
@@ -42,6 +49,9 @@ def createTeam(request):
         teamMember1.save()
         teamMember2.save()
         teamMember3.save()
+        is_team_leader = Team.objects.filter(user=request.user).first()
+        is_team_leader.is_leader = True
+        is_team_leader.save()
         messages.success(request, 'Data has been successfully saved')
     if request.user.is_authenticated:
         team = Team.objects.filter(user=request.user).first()
@@ -67,10 +77,16 @@ def handleLogin(request):
             messages.error(request, 'Wrong password or username')
             return redirect('/login')
         login(request, user)
-        return redirect('/join-team')
+        if Team.objects.filter(user=request.user).first().is_leader == False:
+            return redirect('/join-team')
+        else:
+            return redirect('/create-team')
     else:
         if request.user.is_authenticated:
-            return redirect('/join-team')
+            if Team.objects.filter(user=request.user).first().is_leader == False:
+                return redirect('/join-team')
+            else:
+                return redirect('/create-team')
         else:
             return render(request, 'login.html')
 
@@ -106,7 +122,7 @@ def handleSignUp(request):
             user.last_name = last_name
             user.save()
             auth_token = str(uuid.uuid4())
-            team = Team(user=user, auth_token=auth_token, leader_phone_no=phone_no)
+            team = Team(user=user, auth_token=auth_token, leader_phone_no=phone_no, is_leader=False)
             team.save()
             sendMail(email, auth_token)
             return redirect('/token')
@@ -220,22 +236,26 @@ def joinTeam(request):
                 team_from.can_request = False
                 team_from.can_request_timestamp = datetime.now()
                 team_from.save()
-                messages.success(request, 'Your R to join the team has been sent. Please wait for the leader to accept it')
+                messages.success(request, 'Your request to join the team has been sent. Please wait for the leader to accept it')
                 return redirect('/join-team')
             messages.error(request, 'Request can been sent only once in 24 hours')
             return redirect('/join-team')
     else:
         if request.user.is_authenticated:
-            teams = Team.objects.exclude(user=request.user)
-            data = []
-            for team in teams:
-                team_member = TeamMember.objects.filter(team=team).all()
-                data.append({
-                    'team_name':team.team_name,
-                    'leader': team.user.first_name + " " + team.user.last_name,
-                    'auth_token': team.auth_token,
-                    'team_member': team_member
-                })
-            return render(request, 'join-team.html', { 'data': data })
+            if Team.objects.filter(user=request.user).first().is_leader == False:
+                teams = Team.objects.exclude(user=request.user)
+                data = []
+                for team in teams:
+                    team_member = TeamMember.objects.filter(team=team).all()
+                    data.append({
+                        'team_name':team.team_name,
+                        'leader': team.user.first_name + " " + team.user.last_name,
+                        'auth_token': team.auth_token,
+                        'team_member': team_member
+                    })
+                return render(request, 'join-team.html', { 'data': data })
+            else:
+                messages.warning(request, 'You are Team Leader so you cannot join other team. Remove all members from your team to be able join other teams')
+                return redirect('/create-team')
         else:
             return redirect('/')
