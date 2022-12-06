@@ -40,11 +40,11 @@
   <a href="/join-team">Join a Team</a>
 </div>
 
-<form action="/create-team" method="POST">
+
 <!-- preloader -->
 <div id="preloader"></div>
 
-<form action="/dashboard" method="POST">
+<form action="/create-team" method="POST">
   {% csrf_token %}
   <!-- team name -->
   <div class="container my-4">
@@ -329,3 +329,68 @@
   crossorigin="anonymous"
 ></script>
 {% endblock script %}
+{% comment %} {% for team_member in team_members %}
+  <div class="container bg-white my-4 border">
+    <span class="customBadge">Team Member {{ forloop.counter }}</span>
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          <label for="fname-{{ forloop.counter }}" class="form-title"
+            >First Name</label
+          >
+          <input
+            type="text"
+            class="custom-input"
+            id="fname-{{ forloop.counter }}"
+            name="fname-{{ forloop.counter }}"
+            value="{{ team_member.first_name }}"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <label for="lname-{{ forloop.counter }}" class="form-title"
+            >Last Name</label
+          >
+          <input
+            type="text"
+            class="custom-input"
+            id="lname-{{ forloop.counter }}"
+            name="lname-{{ forloop.counter }}"
+            value="{{ team_member.last_name }}"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          <label for="email-{{ forloop.counter }}" class="form-title"
+            >Email</label
+          >
+          <input
+            type="email"
+            class="custom-input"
+            id="email-{{ forloop.counter }}"
+            name="email-{{ forloop.counter }}"
+            value="{{ team_member.email }}"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <label for="phone-{{ forloop.counter }}" class="form-title"
+            >Phone No.</label
+          >
+          <input
+            type="text"
+            class="custom-input"
+            id="phone-{{ forloop.counter }}"
+            name="phone-{{ forloop.counter }}"
+            value="{{ team_member.phone_no }}"
+          />
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
