@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+.container {
+  margin-inline: 3%;
+  margin-block: 2%;
+  /* border: 1px solid #d1d1d1; */
+  padding-inline: 3%;
+  border-radius: 0.375rem;
+  padding-block: 1%;
+  box-sizing: inherit;
+  /* display: block; */
+  display: grid;
+}
+.myTeam {
+  font-size: 30px;
+  margin-left: 10%;
+}
+.myTeam h2 {
+  /* margin-right: 30px; */
+}
+.title {
+  display: flex;
+}
+.teamName h1 {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+.teamName p {
+  color: rgb(105, 104, 104);
+  font-weight: 400;
+  margin-top: 5px;
+}
+.flex {
+  display: flex;
+}
+.card {
+  background-color: rgba(250, 250, 250, 0.242);
+  border-radius: 8px;
+  /* border: 0.5px solid rgb(71, 71, 71); */
+  /* border: 1px solid rgb(230, 0, 127); */
+  /* border-color: black; */
+  box-shadow: 3px 3px 15px #186edf1a;
+  padding: 15px;
+  /* display: inline-block; */
+  /* width: calc(50% - 20px); */
+  width: 80%;
+  margin: auto;
+  margin-top: 30px;
+  /* margin-bottom: 30px; */
+  /* margin-inline: 14px; */
+}
+.badge {
+  border-radius: 50px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  line-height: 13.73px;
+  padding: 0 15px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+.badge-leader {
+  /* background: rgba(230, 0, 127, 0.05); */
+  /* background: rgba(0, 0, 0, 0.05); */
+  background: #99999939;
+  /* color: #0073e6; */
+  /* color: rgb(230, 0, 127); */
+}
+.leader {
+  display: flex;
+}
+.leader-name {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 20px;
+  color: #000;
+  margin-bottom: 0;
+}
+.name {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+  margin-bottom: 0;
+}
+i {
+  /* color: #0073e6; */
+  /* color: rgb(230, 0, 127); */
+  color: rgb(112, 74, 151);
+  margin-top: 5px;
+  margin-left: 10px;
+}
+.fa-pen-to-square {
+  margin-left: -3px;
+  margin-top: 1px;
+  margin-right: 5px;
+  color: white;
+}
+.teamMembers p {
+  margin-top: 10px;
+}
+.member {
+  background: rgba(112, 74, 151, 0.1);
+  color: #704a97;
+}
+.button {
+  width: 100%;
+  text-align: end;
+}
+.button button {
+  width: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 600;
+  line-height: 19px;
+  font-size: 14px;
+
+  border-width: 1px;
+  border-color: rgb(230, 0, 127);
+  margin-right: 15px;
+  /* color: rgb(101, 101, 101); */
+  /* background-color: #d63500; */
+  background-color: white;
+  color: rgb(230, 0, 127);
+  transition: all 0.2s;
+}
+.button button:hover {
+  background: rgb(230, 0, 127);
+  color: white;
+  /* background: #d9dce0; */
+}
+button:disabled {
+  opacity: 40%;
+}
+button:disabled:hover {
+  cursor: default;
+  background-color: white;
+  color: rgb(230, 0, 127);
+  border-width: 1px;
+  border-color: rgb(230, 0, 127);
+}
+.createBtn button {
+  background-color: rgb(230, 0, 127);
+  color: white;
+  width: 140px;
+}
+.createBtn button:hover {
+  background-color: rgb(194, 12, 112);
+}
+.fa-solid {
+  height: 28px;
+  position: relative;
+  top: 7px;
+  margin-right: 4px;
+}
+.badge p {
+  font-weight: 700;
+}
+.border {
+  width: 50%;
+  border-right: 5px solid rgb(230, 0, 127);
+}
+.rightSide {
+  width: 50%;
+  text-align: center;
+}
+.number {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 20px;
+  color: #000;
+}
+@media only screen and (max-width: 800px) {
+  .flex {
+    flex-direction: column;
+  }
+  .card {
+    width: 90%;
+    margin: auto;
+    margin-top: 28px;
+  }
+}
