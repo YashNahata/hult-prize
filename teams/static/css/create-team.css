@@ -133,3 +133,16 @@
 .extraMargin {
   height: 80px;
 }
+/* .navbar {
+  position: relative;
+}
+.navbar-resp {
+  position: relative;
+}
+@media only screen and (max-width: 970px) {
+  .navbar-resp {
+    position: relative;
+    width: 100%;
+    top: -40px;
+  }
+} */

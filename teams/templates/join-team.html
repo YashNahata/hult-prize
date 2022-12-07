@@ -48,7 +48,11 @@
           My Team
         </a>
     </div>
-
+    {% if data|length == 0 %}
+    <div class="my-5">
+      <h2>No teams have been formed yet. Create your own team to get started</h2>
+    </div>
+    {% else %}
     <div class="flex">
         {% for team in data %}
         <div class="card">
@@ -57,13 +61,21 @@
                 <p>{{team.team_name}}</p>
             </div>
 
-            {% if team.is_leader != True %}
+            {% if team.is_leader != True and team.can_request == True %}
             <form action="/join-team" method="POST" class="button">
                 {% csrf_token %}
                 <input value="{{ team.auth_token }}" name="auth_token" hidden>
                 <button type="submit">
                     Join Team
                 </button>
+            </form>
+            {% elif team.is_leader != True and team.can_request == False %}
+            <form action="/join-team" method="POST" class="button">
+              {% csrf_token %}
+              <input value="{{ team.auth_token }}" name="auth_token" hidden>
+              <button type="submit" disabled title="Request can only be sent once in 24 hours">
+                  Join Team
+              </button>
             </form>
             {% else %}
             <form action="/join-team" method="POST" class="button">
@@ -86,7 +98,7 @@
         </div>
         {% endfor %}
     </div>
-    
+    {% endif %}
 </div>
 
 {% endblock body %}
