@@ -1,8 +1,8 @@
-// let loader = document.getElementById("preloader");
+let loader = document.getElementById("preloader");
 
-// window.addEventListener("load", () => {
-//   loader.style.display = "none";
-// });
+window.addEventListener("load", () => {
+  loader.style.display = "none";
+});
 
 let navbarResp = document.getElementById("navbar-resp");
 let opacity = document.getElementById("opacity");
