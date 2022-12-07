@@ -113,3 +113,6 @@
   border-radius: 5px;
   margin-right: 15px;
 }
+.join-team-box a:hover {
+  opacity: 0.85;
+}

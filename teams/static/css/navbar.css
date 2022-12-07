@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /* opacity */
@@ -16,7 +16,6 @@
   /* transition: opacity 1s ease-in; */
 }
 
-
 /* navbar */
 .navbar {
   z-index: 20;
@@ -27,6 +26,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .leftNavBar {
@@ -85,8 +85,9 @@
 
 .navbar-resp {
   z-index: 15;
+  /* background-color: #686868; */
   background-color: #f8f9fa;
-  height: 315px;
+  height: 267px;
   overflow: hidden;
   transition: height 0.7s ease-in-out;
 }
@@ -104,7 +105,7 @@
 }
 .activelink-resp {
   color: black;
-  border-left: 4px solid rgb(230, 0, 127);
+  border-left: 3px solid rgb(230, 0, 127);
 }
 .navbar-resp a:hover {
   color: rgb(230, 0, 127);
@@ -117,17 +118,17 @@
 
 /* navbar responsive */
 @media only screen and (max-width: 970px) {
-  .navbar{
-        width: 100%;
-        /* height: 60px; */
-        /* position: fixed; */
-    }
-    .navbar-resp{
-        position: fixed;
-        width: 100%;
-        margin-top: 60px;
-        /* height: 169px; */
-    }
+  .navbar {
+    width: 100%;
+    /* height: 60px; */
+    /* position: fixed; */
+  }
+  .navbar-resp {
+    position: fixed;
+    width: 100%;
+    /* margin-top: 60px; */
+    /* height: 169px; */
+  }
   .rightNavBar a {
     visibility: hidden;
   }
@@ -135,8 +136,8 @@
     width: 30px;
     visibility: visible;
   }
-  .activelink-resp {
-    /* color: black; */
-    border-left: 0px solid rgb(230, 0, 127);
-  }
+  /* .activelink-resp {
+    color: black;
+    border-left: 3px solid rgb(230, 0, 127);
+  } */
 }

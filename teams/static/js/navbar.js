@@ -1,8 +1,8 @@
 let loader = document.getElementById("preloader");
 
-window.setTimeout(() => {
-    loader.style.display = "none";
-}, 700);
+window.addEventListener("load", () => {
+  loader.style.display = "none";
+});
 
 let navbarResp = document.getElementById("navbar-resp");
 let opacity = document.getElementById("opacity");
