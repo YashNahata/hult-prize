@@ -251,6 +251,14 @@ def joinTeam(request):
         if request.user.is_authenticated:
             teams = Team.objects.exclude(user=request.user)
             data = []
+            team_from = Team.objects.filter(user=request.user).first()
+            team_timestamp = team_from.can_request_timestamp.date()
+            date_now = datetime.now().date()
+            delta = date_now - team_timestamp
+            if delta.days >= 1:
+                team_from.can_request = True
+                team_from.can_request_timestamp = datetime.now()
+                team_from.save()
             for team in teams:
                 team_member = TeamMember.objects.filter(team=team).all()
                 data.append({
@@ -258,7 +266,8 @@ def joinTeam(request):
                     'leader': team.user.first_name + " " + team.user.last_name,
                     'auth_token': team.auth_token,
                     'team_member': team_member,
-                    'is_leader': Team.objects.filter(user=request.user).first().is_leader
+                    'is_leader': Team.objects.filter(user=request.user).first().is_leader,
+                    'can_request': Team.objects.filter(user=request.user).first().can_request
                 })
                 return render(request, 'join-team.html', { 'data': data })
         else:
