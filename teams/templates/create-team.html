@@ -1,6 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %} 
-{% block title %}Hult Prize - Dashboard{% endblock title %}
+{% block title %}Hult Prize - Create Team{% endblock title %}
 {% block css %}
 <style>
   #preloader{
@@ -19,14 +19,33 @@
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+<link rel="stylesheet" href="{% static 'css/create-team.css' %}" />
 {% endblock css %}
 
 {% block body %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message : </strong> {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+{% endfor %}
+
+<div class="join-team-box container">
+  <a href="/join-team">View all Teams</a>
+  <a href="/my-team">My Team</a>
+</div>
+
+
 <!-- preloader -->
 <div id="preloader"></div>
 
-<form action="/dashboard" method="POST">
+<form action="/create-team" method="POST">
   {% csrf_token %}
   <!-- team name -->
   <div class="container my-4">

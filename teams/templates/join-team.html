@@ -1,0 +1,105 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Hult Prize - View all Teams{% endblock title %}
+{% block css %}
+<style>
+  #preloader{
+  background: white url("{%static 'assets/spinner-gif.gif' %}") no-repeat center center;
+  background-size: 10%;
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
+</style>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="{% static 'css/join-team.css' %}" />
+{% endblock css %}
+
+{% block body %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message : </strong> {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+  </button>
+</div>
+{% endfor %}
+<!-- preloader -->
+<div id="preloader"></div>
+
+
+<div class="container">
+    <div class="button createBtn">
+        <a href="/create-team">
+            Create Team
+        </a>
+        <a href="/my-team">
+          My Team
+        </a>
+    </div>
+
+    <div class="flex">
+        {% for team in data %}
+        <div class="card">
+        <div class="title">
+            <div class="badge badge-leader">
+                <p>{{team.team_name}}</p>
+            </div>
+
+            {% if team.is_leader != True %}
+            <form action="/join-team" method="POST" class="button">
+                {% csrf_token %}
+                <input value="{{ team.auth_token }}" name="auth_token" hidden>
+                <button type="submit">
+                    Join Team
+                </button>
+            </form>
+            {% else %}
+            <form action="/join-team" method="POST" class="button">
+              {% csrf_token %}
+              <input value="{{ team.auth_token }}" name="auth_token" hidden>
+              <button type="submit" disabled title="Delete all members from your team before sending request to other teams">
+                  Join Team
+              </button>
+          </form>
+            {% endif %}
+        </div>
+            <div class="leader">
+                <h5 class="leader-name">{{team.leader}}</h5>
+            </div>
+            <div class="teamMembers">
+                {% for t in team.team_member %}
+                <p class="name">{{ t.first_name }} {{ t.last_name }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+  integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+  crossorigin="anonymous"
+></script>
+{% endblock script %}
