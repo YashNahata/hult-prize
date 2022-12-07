@@ -59,8 +59,11 @@ href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
     <div class="textContent">
       <h1 class="heading">What is the Hult Prize?</h1>
       <p class="content">
-        The Hult Prize challenges young people around the world to solve the
-        planet's most pressing issues through social entrepreneurship.
+        The Hult Prize Foundation transforms how young people envision their own possibillities
+        as leaders of change in the world around them. With a US$ 1,000,000 global statup prize 
+        as its anchor activity, the Hult Prize has brought Impact-focused programs, events and 
+        trainings to over a million students globally, creating a pathway for youth everywhere to 
+        take action to build a better world.
       </p>
     </div>
     <div class="imageContent">
@@ -79,6 +82,24 @@ href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
         Everyone we work with has a story worth hearing. Learn more about the
         startups attending our 2022 Accelerator Program in Boston, USA.
       </p>
+    </div>
+  </div>
+  <div class="container container-odd">
+    
+    <div class="textContent">
+      <h1 class="heading">
+        The 2023 Hult Prize Challenge is here!
+      </h1>
+      <p class="content">
+        We challenge you to create a for-profit social venture, in the fashion/clothing industry. 
+        Your idea must create a measurable positive impact on people and the planet and support the 
+        United Nations in meeting its SDGs by the 2030 deadline. <br>
+      </p>
+      <a href="https://a.storyblok.com/f/133195/x/c87070884e/2023-hult-prize-challenge.pdf" target="_blank">
+        Download the Challenge <i class="fa fa-arrow-right"></i> </a>
+    </div>
+    <div class="imageContent">
+      <img src="{% static 'assets/challenge.png' %}" />
     </div>
   </div>
   <div class="container container-last container-odd">
@@ -325,15 +346,21 @@ href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
 <script src="{%static 'js/home.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script src="{%static 'js/swiper.js' %}"></script>
-{% endblock script %}
-{% endblock body %}
-{% block script %}
-<script>
+<!-- <script>
   const closeBtn = document.querySelector(".btn-close");
   if(closeBtn) {
     closeBtn.addEventListener("click", () => {
       document.querySelector(".alert").style.display = "none";
     });
   }
+</script> -->
+<script>
+  let loader = document.getElementById("preloader");
+
+window.addEventListener("load", () => {
+  loader.style.display = "none";
+});
 </script>
 {% endblock script %}
+{% endblock body %}
+

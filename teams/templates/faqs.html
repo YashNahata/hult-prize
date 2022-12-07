@@ -127,5 +127,12 @@
   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
   crossorigin="anonymous"
 ></script>
+<script>
+  let loader = document.getElementById("preloader");
+
+window.addEventListener("load", () => {
+  loader.style.display = "none";
+});
+</script>
 <!-- <script src="../JavaScript/index.js"></script> -->
 {% endblock body %}

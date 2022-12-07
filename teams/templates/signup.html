@@ -134,12 +134,19 @@
 </div>
 {% endblock body %}
 {% block script %}
-<script>
+<!-- <script>
   const closeBtn = document.querySelector(".btn-close");
   if(closeBtn) {
     closeBtn.addEventListener("click", () => {
       document.querySelector(".alert").style.display = "none";
     });
   }
+</script> -->
+<script>
+  let loader = document.getElementById("preloader");
+
+window.addEventListener("load", () => {
+  loader.style.display = "none";
+});
 </script>
 {% endblock script %}

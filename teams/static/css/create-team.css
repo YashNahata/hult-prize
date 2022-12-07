@@ -7,7 +7,9 @@
 .bg-white {
   background-color: white;
 }
-
+.form {
+  margin-bottom: 100px;
+}
 .form-title {
   color: #667795;
   font-size: 14px;
@@ -37,28 +39,35 @@
 }
 
 .submit-area {
-  background: #fff;
+  background: #fcfcfc;
   padding: 0px 5vw;
   display: flex;
   align-items: center;
-  box-shadow: 0 -2px 4px #7c7b7b17;
+  box-shadow: 0 -4px 7px #7c7b7b17;
   width: 100%;
-  height: 12vh;
+  height: 10vh;
   z-index: 100;
   bottom: 0px;
-  /* position: fixed; */
+  position: fixed;
+  border: 2px;
+  border-color: black;
   /* opacity: 80%; */
 }
 
 .customBtnSubmit {
   width: 143px;
   background-color: rgb(230, 0, 127);
-  color: white;
+  color: rgb(247, 247, 247);
   height: 40px;
   border-radius: 5px;
   font-weight: 500;
   font-size: 16px;
   border: 0px;
+  /* opacity: 100%; */
+}
+.customBtnSubmit:hover {
+  background-color: rgb(180, 18, 107);
+  transition: all 0.3s;
 }
 
 .area-right {
@@ -106,10 +115,21 @@
   margin-top: 25px;
 }
 .join-team-box a {
-  background-color: rgb(230, 0, 127);
-  color: white;
+  /* background-color: rgb(230, 0, 127); */
+  background-color: white;
+  /* color: white; */
+  border: 1px solid rgb(230, 0, 127);
+  color: rgb(230, 0, 127);
   text-decoration: none;
   padding: 5px 7px;
   border-radius: 5px;
   margin-right: 15px;
+}
+.join-team-box a:hover {
+  background-color: rgb(230, 0, 127);
+  color: white;
+  transition: all 0.2s;
+}
+.extraMargin {
+  height: 80px;
 }
