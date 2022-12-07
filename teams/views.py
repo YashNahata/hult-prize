@@ -44,6 +44,9 @@ def createTeam(request):
         if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
             messages.error(request, 'Atleast two members are required')
             return redirect('/create-team')
+        if ((email1 != '' and (email1 == email2 or email1 == email3)) or (email2 != '' and (email2 == email1 or email2 == email3)) or (email3 != '' and (email3 == email1 or email3 == email2)) or (email1 == teamKey.user.email or email2 == teamKey.user.email or email3 == teamKey.user.email)):
+            messages.error(request, 'Email cannot be same')
+            return redirect('/create-team')
         TeamMember.objects.filter(team=teamKey).all().delete()
         teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
         teamMember2 = TeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2)
