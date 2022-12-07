@@ -317,6 +317,11 @@ def acceptInvitation(request, auth_token):
                 TeamMember(team=team, first_name='', last_name='', phone_no='', email='').save()
             team.is_leader = True
             team.save()
+            subject = 'Request accepted - Hult Prize'
+            message = f'Your request to join the team has been accepted'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [Team.objects.filter(auth_token=auth_token).first().user.email]
+            send_mail(subject, message, email_from, recipient_list)
             messages.success(request, 'Member added successfully')
             return redirect('/create-team')
         else:
