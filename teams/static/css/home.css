@@ -517,3 +517,17 @@ main .title {
     line-height: 18px;
   }
 }
+
+.fa-file-pdf-o {
+  margin-left: 5px;
+}
+.timelineLink {
+  margin-top: 10px;
+  margin-right: 5px;
+  text-decoration: none;
+  color: rgb(108, 108, 108);
+  font-size: 20px;
+}
+.timelineLink:hover {
+  text-decoration: underline;
+}

@@ -106,7 +106,7 @@ The clock is ticking, so pull your socks up and start working on your B-plan.
  <br>
       </p>
       <a href="https://a.storyblok.com/f/133195/x/c87070884e/2023-hult-prize-challenge.pdf" target="_blank">
-        Download the Challenge <i class="fa fa-arrow-right"></i> </a>
+        Download the Challenge Pdf <i class="fa fa-file-pdf-o"></i> </a>
     </div>
     <div class="imageContent">
       <img src="{% static 'assets/challenge.png' %}" />
@@ -128,18 +128,24 @@ The clock is ticking, so pull your socks up and start working on your B-plan.
 </section>
 
 <!-- timeline -->
+
 <main>
   <h2 class="title">Timeline</h2>
-  <!-- duplicate this only -->
+
   <div class="timeline">
     <h3 class="heading-timeline">REGISTRATIONS OPEN - 8 December 2022, midnight</h3>
-    <p class="content-timeline">Registrations opened for the application of Hult Prize</p>
+    <p class="content-timeline">
+      Registrations opened for the application of Hult Prize
+      <br>
+      <a href="/signup" class="timelineLink"> Click here to Register <i class="fa-solid fa-pen-to-square"></i> </a>
+    </p>
+    
   </div>
-  <!--  -->
+
 </main>
 
 <!-- Swiper -->
-<div class="swiper mySwiper">
+<div class="swiper mySwiper" id="swiper">
     <div class="swiper-wrapper">
 
       <!-- slide 1 -->
@@ -201,11 +207,9 @@ The clock is ticking, so pull your socks up and start working on your B-plan.
                 <h2>2021</h2>
             </div>
             <p class="contentTransition" id="contentTransition">
-              Team EDC is proud to announce Team "Aakarsh" as the Joint Runner Up of HULT Prize '22, 
-              OnCampus Round, NIT Durgapur. The team comprised of 1st year students, namely Priyanshu Bartwal, 
-              Anshu Agarwal, Liza Gupta and Bedabrata Brahma. Their idea involves the revival of the 
-              captivating collection of lost Indian culture and providing the local artisans, a platform to manufacture
-               products and art in old traditional ways along with a ready market.
+              Team EDC is proud to announce Team "Homely Bites" as the Joint Runner Up of HULT Prize '22, OnCampus Round, NIT Durgapur. 
+              The team comprised of 1st year students, namely Mohd Shoeb, Poorab Kumar, Sanvie Singhal and Manshi Singh. Their idea 
+              involves the provision of home-style meals and local delicacies, prepared by small scale shops at minimal price and time.
             </p>
             
         </div>
@@ -365,6 +369,8 @@ The clock is ticking, so pull your socks up and start working on your B-plan.
     </div>
   </div>
 </footer>
+
+
 {% endblock body %}
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
