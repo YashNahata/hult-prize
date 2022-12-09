@@ -13,8 +13,28 @@ var swiper = new Swiper(".mySwiper", {
   },
 });
 
+let swiperArea = document.getElementById("swiper");
 let nextBtn = document.getElementById("autoClick");
 
+let hover = true;
+
+swiperArea.addEventListener("mouseover", () => {
+  hover = true;
+  console.log("true");
+});
+swiperArea.addEventListener("mouseout", () => {
+  hover = false;
+  console.log("false ");
+});
+// window.setInterval(() => {
+//   if (!hover) {
+//     window.setInterval(() => {
+//       nextBtn.click();
+//     }, 3000);
+//   } else {
+//     console.log("still");
+//   }
+// }, 1000);
 window.setInterval(() => {
   nextBtn.click();
-}, 5000);
+}, 7000);
