@@ -252,7 +252,7 @@ form .btn input[type="submit"] {
 
 @media only screen and (max-width: 545px) {
   .wrapper {
-    width: 350px;
+    width: 305px;
     padding: 20px;
   }
   .title.login {
