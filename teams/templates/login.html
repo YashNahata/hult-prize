@@ -11,8 +11,18 @@
   width: 100%;
   position: fixed;
 }
+.field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#off, #on {
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
 </style>
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 {% endblock css %}
 
 {% block body %}
@@ -71,6 +81,12 @@
               name="password"
               required
             />
+            <span class="material-symbols-outlined" id="off">
+              visibility_off
+            </span>
+            <span class="material-symbols-outlined" style="display: none" id="on">
+              visibility
+            </span>
           </div>
           <div class="field btn">
             <div class="btn-layer"></div>
@@ -94,5 +110,17 @@
       document.querySelector(".alert").style.display = "none";
     });
   }
+  const off = document.getElementById('off');
+  off.addEventListener('click', () => {
+    off.style.display = "none";
+    document.getElementById('on').style.display = "block";
+    document.getElementById('password').type = "text";
+  });
+  const on = document.getElementById('on');
+  on.addEventListener('click', () => {
+    off.style.display = "block";
+    on.style.display = "none";
+    document.getElementById('password').type = "password";
+  });
 </script>
 {% endblock script %}

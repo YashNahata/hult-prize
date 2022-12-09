@@ -11,8 +11,28 @@
   width: 100%;
   position: fixed;
 }
+.field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#off-1, #off-2, #on-1, #on-2 {
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+#password-correct {
+  display: none;
+  color: green;
+  margin-right: 7px;
+}
+#password-wrong {
+  display: none;
+  color: red;
+  margin-right: 7px;
+}
 </style>
 <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 {% endblock css %} 
 
 {% block body %}
@@ -112,6 +132,12 @@
               name="password1"
               required
             />
+            <span class="material-symbols-outlined" id="off-1">
+              visibility_off
+            </span>
+            <span class="material-symbols-outlined" style="display: none" id="on-1">
+              visibility
+            </span>
           </div>
           <div class="space"></div>
           <div class="field">
@@ -122,6 +148,18 @@
               name="password2"
               required
             />
+            <span class="material-symbols-outlined" id="password-correct">
+              check
+            </span>
+            <span class="material-symbols-outlined" id="password-wrong">
+              error
+            </span>
+            <span class="material-symbols-outlined" id="off-2">
+              visibility_off
+            </span>
+            <span class="material-symbols-outlined" id="on-2" style="display: none">
+              visibility
+            </span>
           </div>
           <div class="field btn">
             <div class="btn-layer"></div>
@@ -141,5 +179,51 @@
       document.querySelector(".alert").style.display = "none";
     });
   }
+  const off1 = document.getElementById('off-1');
+  off1.addEventListener('click', () => {
+    off1.style.display = "none";
+    document.getElementById('on-1').style.display = "block";
+    document.getElementById('password1').type = "text";
+  });
+  const on1 = document.getElementById('on-1');
+  on1.addEventListener('click', () => {
+    off1.style.display = "block";
+    on1.style.display = "none";
+    document.getElementById('password1').type = "password";
+  });
+  const off2 = document.getElementById('off-2');
+  off2.addEventListener('click', () => {
+    off2.style.display = "none";
+    document.getElementById('on-2').style.display = "block";
+    document.getElementById('password2').type = "text";
+  });
+  const on2 = document.getElementById('on-2');
+  on2.addEventListener('click', () => {
+    off2.style.display = "block";
+    on2.style.display = "none";
+    document.getElementById('password2').type = "password";
+  });
+  document.getElementById('password2').addEventListener('input', () => {
+    if(document.getElementById('password2').value == document.getElementById('password1').value) {
+      document.getElementById('password-correct').style.display = "block";
+      document.getElementById('password-wrong').style.display = "none";
+    }
+    else {
+      document.getElementById('password-correct').style.display = "none";
+      document.getElementById('password-wrong').style.display = "block";
+    }
+  });
+  document.getElementById('password1').addEventListener('input', () => {
+    if(document.getElementById('password2').value == document.getElementById('password1').value) {
+      document.getElementById('password-correct').style.display = "block";
+      document.getElementById('password-wrong').style.display = "none";
+    }
+    else {
+      if(document.getElementById('password2').value != "") {
+      document.getElementById('password-correct').style.display = "none";
+      document.getElementById('password-wrong').style.display = "block";
+      }
+    }
+  });
 </script>
 {% endblock script %}
