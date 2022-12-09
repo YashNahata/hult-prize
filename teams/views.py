@@ -44,6 +44,9 @@ def createTeam(request):
         if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
             messages.error(request, 'Atleast two members are required')
             return redirect('/create-team')
+        if ((email1 != '' and (email1 == email2 or email1 == email3)) or (email2 != '' and (email2 == email1 or email2 == email3)) or (email3 != '' and (email3 == email1 or email3 == email2)) or (email1 == teamKey.user.email or email2 == teamKey.user.email or email3 == teamKey.user.email)):
+            messages.error(request, 'Email cannot be same')
+            return redirect('/create-team')
         TeamMember.objects.filter(team=teamKey).all().delete()
         teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
         teamMember2 = TeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2)
@@ -317,6 +320,11 @@ def acceptInvitation(request, auth_token):
                 TeamMember(team=team, first_name='', last_name='', phone_no='', email='').save()
             team.is_leader = True
             team.save()
+            subject = 'Request accepted - Hult Prize'
+            message = f'Your request to join the team has been accepted'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [Team.objects.filter(auth_token=auth_token).first().user.email]
+            send_mail(subject, message, email_from, recipient_list)
             messages.success(request, 'Member added successfully')
             return redirect('/create-team')
         else:

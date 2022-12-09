@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock title %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
@@ -25,8 +26,7 @@
       </div>
       <div class="rightNavBar">
         <a href="/" class="activelink leftBorder">Home</a>
-        <a href="/speakers">Speakers</a>
-        <!-- <a href="#" rel="noopener noreferrer">Past Winners</a> -->
+        {% comment %} <a href="/speakers">Speakers</a> {% endcomment %}
         <a
           href="https://www.edcnitd.co.in/"
           target="_blank"
@@ -52,8 +52,7 @@
     <nav id="navbar-resp" class="navbar-resp visible">
       <div>
         <a href="/" class="activelink-resp">Home</a>
-        <a href="/speakers">Speakers</a>
-        <!-- <a href="#">Past Winners</a> -->
+        {% comment %} <a href="/speakers">Speakers</a> {% endcomment %}
         <a
           href="https://www.edcnitd.co.in/"
           target="_blank"

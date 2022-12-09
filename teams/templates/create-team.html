@@ -11,6 +11,10 @@
   width: 100%;
   position: fixed;
 }
+.burger {
+  position: fixed;
+  right: 15px;
+}
 </style>
 
 <link
@@ -19,8 +23,6 @@
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
   crossorigin="anonymous"
 />
-<!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
-<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 <link rel="stylesheet" href="{% static 'css/create-team.css' %}" />
 {% endblock css %}
 
@@ -37,7 +39,6 @@
   </button>
 </div>
 {% endfor %}
-<div class="extraMargin"></div>
 
 <div class="join-team-box container">
   <a href="/join-team">View all Teams</a>
@@ -312,8 +313,6 @@
   </div>
   {% endfor %} {% endif %}
 
-  <div class="extraMargin"></div>
-
   <!-- submit button -->
   <div class="submit-area">
     <div class="area-right">
@@ -334,11 +333,4 @@
   integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
   crossorigin="anonymous"
 ></script>
-<script>
-  let loader = document.getElementById("preloader");
-
-window.addEventListener("load", () => {
-  loader.style.display = "none";
-});
-</script>
 {% endblock script %}
