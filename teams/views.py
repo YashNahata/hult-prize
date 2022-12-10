@@ -9,10 +9,6 @@ from .models import Team, TeamMember, Faq, Speaker
 from datetime import datetime
 
 def home(request):
-    # if request.user.is_authenticated and Team.objects.filter(user=request.user).first().is_leader == False:
-    #     return redirect('/join-team')
-    # if request.user.is_authenticated:
-    #     return redirect('/create-team')
     return render(request, 'home.html')
 
 def team(request):
@@ -154,7 +150,7 @@ def token(request):
 
 def sendMail(email, token):
     subject = 'Verify your account - Hult Prize'
-    message = f'Please click the link to verify your account http://127.0.0.1:8000/verify/{token}'
+    message = f'Please click the link to verify your account https://hult.edcnitd.co.in/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -228,8 +224,8 @@ def joinTeam(request):
             team_from = Team.objects.filter(user=request.user).first()
             team_leader_email = team.user.email
             if team_from.can_request == True:
-                subject = 'Request to join your team'
-                message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - http://127.0.0.1:8000/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
+                subject = f'Request to join your team - {request.user.first_name + " " + request.user.last_name}'
+                message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [team_leader_email]
                 send_mail(subject, message, email_from, recipient_list)
@@ -243,8 +239,8 @@ def joinTeam(request):
                 date_now = datetime.now().date()
                 delta = date_now - team_timestamp
                 if delta.days >= 1:
-                    subject = 'Request to join your team'
-                    message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - http://127.0.0.1:8000/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
+                    subject = f'Request to join your team - {request.user.first_name + " " + request.user.last_name}'
+                    message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
                     email_from = settings.EMAIL_HOST_USER
                     recipient_list = [team_leader_email]
                     send_mail(subject, message, email_from, recipient_list)
@@ -332,7 +328,7 @@ def acceptInvitation(request, auth_token):
             team.is_leader = True
             team.save()
             subject = 'Request accepted - Hult Prize'
-            message = f'Your request to join the team has been accepted'
+            message = f'Your request to join the team, {Team.objects.filter(user=request.user).first().team_name}, has been accepted'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [Team.objects.filter(auth_token=auth_token).first().user.email]
             send_mail(subject, message, email_from, recipient_list)
