@@ -9,11 +9,19 @@ from .models import Team, TeamMember, Faq, Speaker
 from datetime import datetime
 
 def home(request):
+    # if request.user.is_authenticated and Team.objects.filter(user=request.user).first().is_leader == False:
+    #     return redirect('/join-team')
+    # if request.user.is_authenticated:
+    #     return redirect('/create-team')
+    return render(request, 'home.html')
+
+def team(request):
     if request.user.is_authenticated and Team.objects.filter(user=request.user).first().is_leader == False:
         return redirect('/join-team')
     if request.user.is_authenticated:
         return redirect('/create-team')
-    return render(request, 'home.html')
+    else:
+        return redirect('/')
 
 def createTeam(request):
     if request.method == "POST":
@@ -40,7 +48,7 @@ def createTeam(request):
             is_team_leader = Team.objects.filter(user=request.user).first()
             is_team_leader.is_leader = False
             is_team_leader.save()
-            return redirect('/')
+            return redirect('/join-team')
         if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
             messages.error(request, 'Atleast two members are required')
             return redirect('/create-team')
@@ -277,29 +285,32 @@ def joinTeam(request):
             return redirect('/')
 
 def myTeam(request):
-    myData = TeamMember.objects.filter(email=request.user.email).first()
-    if myData is None:
-        myData = Team.objects.filter(user=request.user).first()
-        team_data = TeamMember.objects.filter(team=myData)
-        team_name = myData.team_name
-        team_leader = myData.user.first_name + " " + myData.user.last_name
-        data = []
-        data.append({
-            'team_name': team_name,
-            'team_leader': team_leader,
-            'team_members': team_data
-        })
+    if request.user.is_authenticated:
+        myData = TeamMember.objects.filter(email=request.user.email).first()
+        if myData is None:
+            myData = Team.objects.filter(user=request.user).first()
+            team_data = TeamMember.objects.filter(team=myData)
+            team_name = myData.team_name
+            team_leader = myData.user.first_name + " " + myData.user.last_name
+            data = []
+            data.append({
+                'team_name': team_name,
+                'team_leader': team_leader,
+                'team_members': team_data
+            })
+        else:
+            team_data = TeamMember.objects.filter(team=myData.team)
+            team_leader = myData.team.user.first_name + " " + myData.team.user.last_name
+            team_name = myData.team.team_name
+            data = []
+            data.append({
+                'team_name': team_name,
+                'team_leader': team_leader,
+                'team_members': team_data
+            })
+        return render(request, 'my-team.html', { 'my_team': data })
     else:
-        team_data = TeamMember.objects.filter(team=myData.team)
-        team_leader = myData.team.user.first_name + " " + myData.team.user.last_name
-        team_name = myData.team.team_name
-        data = []
-        data.append({
-            'team_name': team_name,
-            'team_leader': team_leader,
-            'team_members': team_data
-        })
-    return render(request, 'my-team.html', { 'my_team': data })
+        return redirect('/')
 
 def acceptInvitation(request, auth_token):
     if request.user.is_authenticated:

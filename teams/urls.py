@@ -9,6 +9,7 @@ urlpatterns = [
     path('create-team', views.createTeam, name="createTeam"),
     path('join-team', views.joinTeam, name="joinTeam"),
     path('my-team', views.myTeam, name="myTeam"),
+    path('team', views.team, name="team"),
     path('accept-invitation/<auth_token>', views.acceptInvitation, name="acceptInvitation"),
     path('login', views.handleLogin, name="handleLogin"),
     path('signup', views.handleSignUp, name="handleSignUp"),
