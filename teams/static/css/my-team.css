@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Oswald:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
+  font-family: "Poppins", sans-serif;
 }
 .container {
   margin-inline: 3%;
@@ -95,9 +100,9 @@
 i {
   /* color: #0073e6; */
   /* color: rgb(230, 0, 127); */
-  color: rgb(112, 74, 151);
-  margin-top: 5px;
-  margin-left: 10px;
+  /* color: rgb(112, 74, 151); */
+  /* margin-top: 5px;
+  margin-left: 10px; */
 }
 .fa-pen-to-square {
   margin-left: -3px;
@@ -160,12 +165,12 @@ button:disabled:hover {
 .createBtn button:hover {
   background-color: rgb(194, 12, 112);
 }
-.fa-solid {
+/* .fa-solid {
   height: 28px;
   position: relative;
   top: 7px;
   margin-right: 4px;
-}
+} */
 .badge p {
   font-weight: 700;
 }
@@ -191,5 +196,206 @@ button:disabled:hover {
     width: 90%;
     margin: auto;
     margin-top: 28px;
+  }
+}
+.logo {
+  /* margin-top: 10px; */
+  width: 100%;
+  display: flex;
+}
+.logo img {
+  width: 260px;
+  margin: auto;
+}
+.card-header {
+  /* font-weight: 600; */
+  font-size: 20px;
+}
+.container {
+  width: 100%;
+}
+.leader {
+  font-size: 18px;
+}
+.teamName {
+  font-size: 30px;
+  font-weight: 600;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.line_::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 100px);
+  top: 0px;
+}
+.line_::after {
+  content: "";
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: rgb(230, 0, 127);
+  bottom: 0;
+  left: calc(50% - 50px);
+  top: -4px;
+}
+
+/* .teamName::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 100px);
+  top: 50px;
+}
+.teamName::after {
+  content: "";
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: rgb(230, 0, 127);
+  bottom: 0;
+  left: calc(50% - 50px);
+  top: 14px;
+} */
+
+/*  */
+/* footer */
+/*  */
+.footer {
+  background-color: rgb(23, 23, 23);
+  color: white;
+  display: flex;
+  width: 100%;
+  height: 400px;
+  padding-top: 50px;
+}
+
+.leftFooter {
+  width: 33%;
+  padding: 40px;
+
+  text-align: center;
+}
+.leftFooterContent {
+  border-left: 5px solid rgb(230, 0, 127);
+}
+.leftFooterContent h2 {
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+}
+.leftFooterContent h3 {
+  font-size: 15px;
+  font-weight: 100;
+  padding: 8px;
+  font-weight: 600;
+}
+.leftFooter p {
+  padding: 4px;
+  font-size: 15px;
+  line-height: 25px;
+}
+.fa-heart {
+  color: red;
+}
+
+.middleFooter {
+  width: 33%;
+  padding: 40px;
+}
+.middleFooter h2 {
+  font-size: 15px;
+  padding-bottom: 8px;
+  font-family: "Montserrat", sans-serif;
+}
+.middleFooter p {
+  padding-top: 20px;
+  font-size: 15px;
+  line-height: 25px;
+}
+.socials {
+  display: flex;
+}
+.circle {
+  background-color: white;
+  margin: 5px;
+  padding: 2px;
+  border-radius: 15px;
+  height: 25px;
+  width: 25px;
+  align-items: center;
+  justify-content: center;
+}
+.circle:hover {
+  background-color: rgb(230, 0, 127);
+  cursor: pointer;
+}
+.socials i {
+  color: black;
+  width: 100%;
+  margin: 3.5px;
+}
+
+.rightFooter {
+  width: 33%;
+  padding: 40px;
+}
+.rightFooter h2 {
+  font-size: 15px;
+  padding-bottom: 8px;
+  font-family: "Montserrat", sans-serif;
+}
+.usefulLinks {
+  padding-top: 20px;
+  font-size: 15px;
+  margin-left: 14px;
+}
+.rightFooter ul {
+  list-style-type: circle;
+  margin-top: 5px;
+}
+.usefulLinks a {
+  text-decoration: none;
+  color: white;
+}
+.usefulLinks a:hover {
+  color: rgb(230, 0, 127);
+}
+
+/* footer responsive */
+@media only screen and (max-width: 970px) {
+  .footer {
+    flex-direction: column;
+    height: 900px;
+  }
+  .leftFooter {
+    width: 100%;
+  }
+  .middleFooter {
+    width: 50%;
+  }
+  .rightFooter {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .middleFooter {
+    width: 100%;
+  }
+  .rightFooter {
+    width: 100%;
   }
 }

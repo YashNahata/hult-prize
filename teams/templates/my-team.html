@@ -9,6 +9,10 @@
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
   crossorigin="anonymous"
 />
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 <style>
     #preloader{
     background: white url("{% static 'assets/spinner-gif.gif' %}") no-repeat center center;
@@ -45,17 +49,22 @@
 <!-- preloader -->
 <div id="preloader"></div>
 <!--  -->
+
 <div class="container">
     
     {% for mt in my_team %}
-    <h2 class="mx-auto my-5">My Team</h2>
+    <h2 class="my-3 teamName">My Team</h2>
+    <div class="line_"></div>
     <div class="card my-3" style="width: 18rem;">
         <div class="card-header">
         {{ mt.team_name }}
         </div>
         <ul class="list-group list-group-flush">
         {% if mt.team_leader|length > 0 %}
-        <li class="list-group-item">{{ mt.team_leader }}</li>
+        <li class="list-group-item leader">
+          {{ mt.team_leader }}
+          <i class="fa-solid fa-crown"></i>
+        </li>
         {% endif %}
         {% for tm in mt.team_members %}
         {% if tm.first_name|length > 0 %}
@@ -65,8 +74,13 @@
         </ul>
     </div>
     {% endfor %}
+
+    <div class="logo my-3">
+      <img src="{% static 'assets/hultPrizeLogo.png' %}" alt="">
+    </div>
 </div>
 {% comment %} <!--  -->
+
 
 
 <!--  -->
@@ -118,6 +132,87 @@
   </div>
   </div>
 </div> {% endcomment %}
+
+<!-- footer -->
+<footer class="footer">
+  <div class="leftFooter">
+    <div class="leftFooterContent">
+      <h2>
+        Entrepreneurship <br />
+        Development Cell
+      </h2>
+      <h3>Nit Durgapur</h3>
+    </div>
+    <p>
+      Made with <i class="fa fa-heart" aria-hidden="true"></i> by Web-Team
+      <br />© 2022 EDC. All Rights Reserved.
+    </p>
+  </div>
+  <div class="middleFooter">
+    <div class="bottomBorder">
+      <h2>CONTACT US</h2>
+    </div>
+    <p>
+      <i class="fa fa-map-marker"></i> : Mahatma Gandhi Avenue,<br />
+      A-Zone, Durgapur, West Bengal <br />
+      Durgapur: 713209
+      <br />
+      <i class="fa fa-phone"></i> : +91 9123001251(Purvi)
+      <br>
+      <i class="fa fa-phone"></i> : +91 8335810111(Yash)
+      <br />
+      <i class="fa fa-envelope-o"></i> : edc@nitdgp.ac.in
+    </p>
+    <div class="socials">
+      <div class="circle" id="twitter">
+        <a href="https://twitter.com/edcnitd" target="_blank" rel="noopener noreferrer"
+          ><i id="twitter-icon" class="fa fa-twitter"></i
+        ></a>
+      </div>
+      <div class="circle" id="fb">
+        <a href="https://www.facebook.com/edc.nitd" target="_blank" rel="noopener noreferrer"
+          ><i id="fb-icon" class="fa fa-facebook"></i
+        ></a>
+      </div>
+      <div class="circle" id="insta">
+        <a href="https://www.instagram.com/edc.nitd/" target="_blank" rel="noopener noreferrer"
+          ><i id="insta-icon" class="fa fa-instagram"></i
+        ></a>
+      </div>
+      <div class="circle" id="yt">
+        <a href="https://www.youtube.com/@entrepreneurshipdevelopmen7605" target="_blank" rel="noopener noreferrer"
+          ><i id="yt-icon" class="fa fa-youtube"></i
+        ></a>
+      </div>
+      <div class="circle" id="linkedin">
+        <a href="https://in.linkedin.com/company/edcnitd" target="_blank" rel="noopener noreferrer"
+          ><i id="linkedin-icon" class="fa fa-linkedin"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div class="rightFooter">
+    <div class="bottomBorder">
+      <h2>USEFUL LINKS</h2>
+    </div>
+    <div class="usefulLinks">
+      <ul>
+        <li><a href="/" rel="noopener noreferrer">Home</a></li>
+      </ul>
+      <ul>
+        <li>
+          <a href="https://www.edcnitd.co.in/" target="_blank" rel="noopener noreferrer">EDC</a>
+        </li>
+      </ul>
+      <ul>
+        <li><a href="/signup" rel="noopener noreferrer">Register</a></li>
+      </ul>
+      <ul>
+        <li><a href="/login" rel="noopener noreferrer">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
 {% endblock body %}
 
