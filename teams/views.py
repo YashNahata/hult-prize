@@ -276,7 +276,7 @@ def joinTeam(request):
                     'is_leader': Team.objects.filter(user=request.user).first().is_leader,
                     'can_request': Team.objects.filter(user=request.user).first().can_request
                 })
-                return render(request, 'join-team.html', { 'data': data })
+            return render(request, 'join-team.html', { 'data': data })
         else:
             return redirect('/')
 
