@@ -9,6 +9,10 @@
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
   crossorigin="anonymous"
 />
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 <style>
     #preloader{
     background: white url("{% static 'assets/spinner-gif.gif' %}") no-repeat center center;
@@ -45,17 +49,22 @@
 <!-- preloader -->
 <div id="preloader"></div>
 <!--  -->
+
 <div class="container">
     
     {% for mt in my_team %}
-    <h2 class="mx-auto my-5">My Team</h2>
+    <h2 class="my-3 teamName">My Team</h2>
+    <div class="line_"></div>
     <div class="card my-3" style="width: 18rem;">
         <div class="card-header">
         {{ mt.team_name }}
         </div>
         <ul class="list-group list-group-flush">
         {% if mt.team_leader|length > 0 %}
-        <li class="list-group-item">{{ mt.team_leader }}</li>
+        <li class="list-group-item leader">
+          {{ mt.team_leader }}
+          <i class="fa-solid fa-crown"></i>
+        </li>
         {% endif %}
         {% for tm in mt.team_members %}
         {% if tm.first_name|length > 0 %}
@@ -65,8 +74,13 @@
         </ul>
     </div>
     {% endfor %}
+
+    <div class="logo my-3">
+      <img src="{% static 'assets/hultPrizeLogo.png' %}" alt="">
+    </div>
 </div>
 {% comment %} <!--  -->
+
 
 
 <!--  -->

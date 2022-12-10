@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Oswald:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
+  font-family: "Poppins", sans-serif;
 }
 .container {
   margin-inline: 3%;
@@ -96,8 +101,8 @@ i {
   /* color: #0073e6; */
   /* color: rgb(230, 0, 127); */
   color: rgb(112, 74, 151);
-  margin-top: 5px;
-  margin-left: 10px;
+  /* margin-top: 5px;
+  margin-left: 10px; */
 }
 .fa-pen-to-square {
   margin-left: -3px;
@@ -160,12 +165,12 @@ button:disabled:hover {
 .createBtn button:hover {
   background-color: rgb(194, 12, 112);
 }
-.fa-solid {
+/* .fa-solid {
   height: 28px;
   position: relative;
   top: 7px;
   margin-right: 4px;
-}
+} */
 .badge p {
   font-weight: 700;
 }
@@ -193,3 +198,76 @@ button:disabled:hover {
     margin-top: 28px;
   }
 }
+.logo {
+  /* margin-top: 10px; */
+  width: 100%;
+  display: flex;
+}
+.logo img {
+  width: 260px;
+  margin: auto;
+}
+.card-header {
+  /* font-weight: 600; */
+  font-size: 20px;
+}
+.container {
+  width: 100%;
+}
+.leader {
+  font-size: 18px;
+}
+.teamName {
+  font-size: 30px;
+  font-weight: 600;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.line_::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 100px);
+  top: 0px;
+}
+.line_::after {
+  content: "";
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: rgb(230, 0, 127);
+  bottom: 0;
+  left: calc(50% - 50px);
+  top: -4px;
+}
+
+/* .teamName::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 100px);
+  top: 50px;
+}
+.teamName::after {
+  content: "";
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: rgb(230, 0, 127);
+  bottom: 0;
+  left: calc(50% - 50px);
+  top: 14px;
+} */
