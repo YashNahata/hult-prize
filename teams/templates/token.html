@@ -3,17 +3,27 @@
 {%block css %}
 <style>
   .container {
-    margin: 80px auto;
-    width: 50vw;
+    margin-top: 90px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .navbar-resp {
+    position: relative;
+  }
+  p {
+    margin-top: 10px;
   }
 </style>
 {% endblock css %}
 
 {% block body %}
+<!-- preloader -->
+<div id="preloader"></div>
 <div class="container">
   <h3>
     Please click on the link send to your registered email to activate your
     account
   </h3>
+  <p>(Please check your spam folder)</p>
 </div>
 {% endblock body %}
