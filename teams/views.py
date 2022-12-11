@@ -22,6 +22,9 @@ def team(request):
 def createTeam(request):
     if request.method == "POST":
         team_name = request.POST.get('team_name')
+        if team_name == '':
+            messages.error(request, 'Team name is required')
+            return redirect('/create-team')
         update_team_name = Team.objects.filter(user=request.user).first()
         update_team_name.team_name = team_name
         update_team_name.save()
@@ -38,16 +41,16 @@ def createTeam(request):
         email3 = request.POST.get('email-3').strip()
         phone3 = request.POST.get('phone-3')
         teamKey = Team.objects.filter(user=request.user).first()
-        if ((email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == '')) and Team.objects.filter(user=request.user).first().is_leader == True:
+        if ((email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == '')):
             messages.warning(request, 'Team deleted. Now you can join other team or create again')
             TeamMember.objects.filter(team=teamKey).all().delete()
             is_team_leader = Team.objects.filter(user=request.user).first()
             is_team_leader.is_leader = False
             is_team_leader.save()
             return redirect('/join-team')
-        if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
-            messages.error(request, 'Atleast two members are required')
-            return redirect('/create-team')
+        # if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
+        #     messages.error(request, 'Atleast three members are required')
+        #     return redirect('/create-team')
         if ((email1 != '' and (email1 == email2 or email1 == email3)) or (email2 != '' and (email2 == email1 or email2 == email3)) or (email3 != '' and (email3 == email1 or email3 == email2)) or (email1 == teamKey.user.email or email2 == teamKey.user.email or email3 == teamKey.user.email)):
             messages.error(request, 'Email cannot be same')
             return redirect('/create-team')
@@ -268,14 +271,16 @@ def joinTeam(request):
                 team_from.save()
             for team in teams:
                 team_member = TeamMember.objects.filter(team=team).all()
-                data.append({
-                    'team_name':team.team_name,
-                    'leader': team.user.first_name + " " + team.user.last_name,
-                    'auth_token': team.auth_token,
-                    'team_member': team_member,
-                    'is_leader': Team.objects.filter(user=request.user).first().is_leader,
-                    'can_request': Team.objects.filter(user=request.user).first().can_request
-                })
+                if team_member.count() != 0:
+                    data.append({
+                        'team_name':team.team_name,
+                        'leader': team.user.first_name + " " + team.user.last_name,
+                        'auth_token': team.auth_token,
+                        'team_member': team_member,
+                        'is_leader': Team.objects.filter(user=request.user).first().is_leader,
+                        'can_request': Team.objects.filter(user=request.user).first().can_request,
+                        'no_of_members': team_member.count()
+                    })
             return render(request, 'join-team.html', { 'data': data })
         else:
             return redirect('/')

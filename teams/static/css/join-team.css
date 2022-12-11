@@ -158,6 +158,7 @@ button:disabled:hover {
 @media only screen and (max-width: 800px) {
   .flex {
     flex-direction: column;
+    flex-wrap: nowrap;
   }
   .card {
     width: 90%;
