@@ -256,6 +256,7 @@ def joinTeam(request):
                 send_mail(subject, message, email_from, recipient_list)
                 team_from.can_request = False
                 team_from.can_request_timestamp = datetime.now()
+                team_from.request_sent_to = auth_token
                 team_from.save()
                 messages.success(request, 'Your request has been sent')
                 return redirect('/join-team')
@@ -293,15 +294,33 @@ def joinTeam(request):
                 team_from.save()
             for team in teams:
                 team_member = TeamMember.objects.filter(team=team).all()
+                request_sent_to = Team.objects.filter(user=request.user).first().request_sent_to
+                can_request = Team.objects.filter(user=request.user).first().can_request
+                if request_sent_to != '':
+                    request_sent_to_team = TeamMember.objects.filter(team=Team.objects.filter(auth_token=request_sent_to).first()).all()
+                    request_sent_to_team_count = 0
+                    for i in request_sent_to_team:
+                        if i.email != '':
+                            request_sent_to_team_count += 1
+                    if request_sent_to_team_count == 3:
+                        can_request = True
+                        team_from.can_request = True
+                        team_from.can_request_timestamp = datetime.now()
+                        team_from.request_sent_to = ''
+                        team_from.save()
                 if team_member.count() != 0:
+                    no_of_members = 0
+                    for tm in team_member:
+                        if tm.email != '':
+                            no_of_members += 1
                     data.append({
                         'team_name':team.team_name,
                         'leader': team.user.first_name + " " + team.user.last_name,
                         'auth_token': team.auth_token,
                         'team_member': team_member,
                         'is_leader': Team.objects.filter(user=request.user).first().is_leader,
-                        'can_request': Team.objects.filter(user=request.user).first().can_request,
-                        'no_of_members': team_member.count()
+                        'can_request': can_request,
+                        'no_of_members': no_of_members
                     })
             return render(request, 'join-team.html', { 'data': data })
         else:
