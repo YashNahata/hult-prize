@@ -179,6 +179,7 @@ def teamsCSV(request):
         response = HttpResponse(content_type="text/csv")
         response["Content-Disposition"] = 'attachment; filename="teams.csv"'
         writer = csv.writer(response)
+        # Team formed
         writer.writerow(
                 [
                     "Team name",
@@ -188,25 +189,46 @@ def teamsCSV(request):
                 ]
             )
         for team in Team.objects.all():
-            writer.writerow(
-                [
-                    team.team_name,
-                    team.user.first_name + " " + team.user.last_name + " " + "(Leader)",
-                    team.user.email,
-                    team.leader_phone_no
-                ]
-            )
-            team_members = TeamMember.objects.filter(team=team).all()
-            for team_member in team_members:
+            if TeamMember.objects.filter(team=team).all().count() != 0:
                 writer.writerow(
                     [
                         team.team_name,
-                        team_member.first_name + " " + team_member.last_name,
-                        team_member.email,
-                        team_member.phone_no
+                        team.user.first_name + " " + team.user.last_name + " " + "(Leader)",
+                        team.user.email,
+                        team.leader_phone_no
                     ]
                 )
-            writer.writerow([])
+                team_members = TeamMember.objects.filter(team=team).all()
+                for team_member in team_members:
+                    writer.writerow(
+                        [
+                            team.team_name,
+                            team_member.first_name + " " + team_member.last_name,
+                            team_member.email,
+                            team_member.phone_no
+                        ]
+                    )
+                writer.writerow([])
+        writer.writerow([])
+        writer.writerow(["Registered but not part of a team"])
+        writer.writerow([])
+        # Team not formed
+        writer.writerow(
+                [
+                    "Name",
+                    "Email",
+                    "Phone No."
+                ]
+            )
+        for team in Team.objects.all():
+            if TeamMember.objects.filter(team=team).all().count() == 0:
+                writer.writerow(
+                    [
+                        team.user.first_name + " " + team.user.last_name,
+                        team.user.email,
+                        team.leader_phone_no
+                    ]
+                )
         return response
     else:
         return redirect('/')
