@@ -11,6 +11,7 @@ urlpatterns = [
     path('my-team', views.myTeam, name="myTeam"),
     path('team', views.team, name="team"),
     path('accept-invitation/<auth_token>', views.acceptInvitation, name="acceptInvitation"),
+    path('leader-invitation/<token>', views.leaderInvitation, name="leaderInvitation"),
     path('login', views.handleLogin, name="handleLogin"),
     path('signup', views.handleSignUp, name="handleSignUp"),
     path('logout', views.handleLogout, name="handleLogout"),

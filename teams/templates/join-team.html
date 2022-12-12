@@ -68,8 +68,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
             <div class="badge badge-leader">
                 <p>{{team.team_name}}</p>
             </div>
-
-            {% if team.is_leader != True and team.can_request == True %}
+            {% if team.no_of_members == 3 %}
+            {% comment %} <form action="/join-team" method="POST" class="button">
+                {% csrf_token %}
+                <input value="{{ team.auth_token }}" name="auth_token" hidden>
+                <button type="submit" disabled title="Maximum 4 members can join a team">
+                    Join Team
+                </button>
+            </form> {% endcomment %}
+            {% elif team.is_leader != True and team.can_request == True %}
             <form action="/join-team" method="POST" class="button">
                 {% csrf_token %}
                 <input value="{{ team.auth_token }}" name="auth_token" hidden>

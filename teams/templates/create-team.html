@@ -15,6 +15,9 @@
   position: absolute;
   right: 15px;
 }
+input[readonly=""] {
+  cursor: not-allowed;
+}
 </style>
 
 <link
@@ -261,6 +264,7 @@
             id="fname-{{ forloop.counter }}"
             name="fname-{{ forloop.counter }}"
             value="{{ team_member.first_name }}"
+            {% if team_member.email|length != 0 %}readonly{% endif %}
           />
         </div>
       </div>
@@ -275,6 +279,7 @@
             id="lname-{{ forloop.counter }}"
             name="lname-{{ forloop.counter }}"
             value="{{ team_member.last_name }}"
+            {% if team_member.email|length != 0 %}readonly{% endif %}
           />
         </div>
       </div>
@@ -292,6 +297,7 @@
             id="email-{{ forloop.counter }}"
             name="email-{{ forloop.counter }}"
             value="{{ team_member.email }}"
+            {% if team_member.email|length != 0 %}readonly{% endif %}
           />
         </div>
       </div>
@@ -306,6 +312,7 @@
             id="phone-{{ forloop.counter }}"
             name="phone-{{ forloop.counter }}"
             value="{{ team_member.phone_no }}"
+            {% if team_member.email|length != 0 %}readonly{% endif %}
           />
         </div>
       </div>

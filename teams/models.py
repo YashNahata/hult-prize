@@ -10,6 +10,7 @@ class Team(models.Model):
     leader_phone_no = models.CharField(max_length=10)
     can_request = models.BooleanField(default=True)
     can_request_timestamp = models.DateTimeField(auto_now_add=True, blank=True)
+    request_sent_to = models.CharField(blank=True, max_length=120)
     is_leader = models.BooleanField(default=False, blank=True)
     def __str__(self):
         return self.user.username + " | " + self.team_name
@@ -35,3 +36,13 @@ class Speaker(models.Model):
     photo = models.FileField(upload_to='speakers/')
     def __str__(self):
         return "Speaker | " + self.name
+
+class UnverifiedTeamMember(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=10)
+    email = models.EmailField()
+    token = models.CharField(max_length=100)
+    def __str__(self):
+        return self.team.team_name + " - " + self.first_name + " " + self.last_name
