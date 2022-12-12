@@ -59,7 +59,8 @@
   background-color: rgba(0, 0, 0, 0.05);
   /* background: #99999939; */
   /* color: #0073e6; */
-  color: rgb(230, 0, 127);
+  /* color: rgb(230, 0, 127); */
+  color: black;
 }
 .leader {
   display: flex;
@@ -158,6 +159,7 @@ button:disabled:hover {
 @media only screen and (max-width: 800px) {
   .flex {
     flex-direction: column;
+    flex-wrap: nowrap;
   }
   .card {
     width: 90%;
@@ -304,4 +306,7 @@ button:disabled:hover {
   .rightFooter {
     width: 100%;
   }
+}
+.fa-crown {
+  color: #704a97;
 }
