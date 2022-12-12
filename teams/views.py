@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
-from .models import Team, TeamMember, Faq, Speaker
+from .models import Team, TeamMember, Faq, Speaker, UnverifiedTeamMember
 from datetime import datetime
 
 def home(request):
@@ -48,23 +48,48 @@ def createTeam(request):
             is_team_leader.is_leader = False
             is_team_leader.save()
             return redirect('/join-team')
-        # if (email1 == '' and email2 == '' and email3 == '') or (phone1 == '' and phone2 == '' and phone3 == ''):
-        #     messages.error(request, 'Atleast three members are required')
-        #     return redirect('/create-team')
         if ((email1 != '' and (email1 == email2 or email1 == email3)) or (email2 != '' and (email2 == email1 or email2 == email3)) or (email3 != '' and (email3 == email1 or email3 == email2)) or (email1 == teamKey.user.email or email2 == teamKey.user.email or email3 == teamKey.user.email)):
             messages.error(request, 'Email cannot be same')
             return redirect('/create-team')
-        TeamMember.objects.filter(team=teamKey).all().delete()
-        teamMember1 = TeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1)
-        teamMember2 = TeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2)
-        teamMember3 = TeamMember(team=teamKey, first_name=fname3, last_name=lname3, email=email3, phone_no=phone3)
-        teamMember1.save()
-        teamMember2.save()
-        teamMember3.save()
+        already = TeamMember.objects.filter(team=teamKey).all()
+        index = 1
+        for i in already:
+            if len(i.email) != 0 and index == 1:
+                email1 = ''
+            if len(i.email) != 0 and index == 2:
+                email2 = ''
+            if len(i.email) != 0 and index == 3:
+                email3 = ''
+            index += 1
+        if email1 != '':
+            token = str(uuid.uuid4())
+            subject = f'Invitation to Join Team {team_name} - Hult Prize'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            recipient_list = [email1]
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+            unverified1 = UnverifiedTeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1, token=token)
+            unverified1.save()
+        if email2 != '':
+            token = str(uuid.uuid4())
+            subject = f'Invitation to Join Team {team_name} - Hult Prize'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            recipient_list = [email2]
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+            unverified2 = UnverifiedTeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2, token=token)
+            unverified2.save()
+        if email3 != '':
+            token = str(uuid.uuid4())
+            subject = f'Invitation to Join Team {team_name} - Hult Prize'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            recipient_list = [email3]
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+            unverified3 = UnverifiedTeamMember(team=teamKey, first_name=fname3, last_name=lname3, email=email3, phone_no=phone3, token=token)
+            unverified3.save()
         is_team_leader = Team.objects.filter(user=request.user).first()
         is_team_leader.is_leader = True
         is_team_leader.save()
-        messages.success(request, 'Data has been successfully saved')
+        messages.success(request, 'Invitation to join has been sent to the submitted email/s')
+        messages.warning(request, 'After the invitation has been accepted, it will be visible here')
         return redirect('/create-team')
     if request.user.is_authenticated:
         team = Team.objects.filter(user=request.user).first()
@@ -72,6 +97,38 @@ def createTeam(request):
         return render(request, 'create-team.html', { 'team_members': team_members, 'team': team })
     else:
         return redirect('/')
+
+def leaderInvitation(request, token):
+    if request.method == 'GET':
+        unverified = UnverifiedTeamMember.objects.filter(token=token).first()
+        if unverified is not None:
+            first_name = unverified.first_name
+            last_name = unverified.last_name
+            team = unverified.team
+            email = unverified.email
+            phone_no = unverified.phone_no
+            if TeamMember.objects.filter(team=team).all().count() == 3:
+                messages.error(request, 'Already 4 members in the team')
+                return redirect('/')
+            verified = TeamMember(team=team, first_name=first_name, last_name=last_name, email=email, phone_no=phone_no)
+            verified.save()
+            all_members = TeamMember.objects.filter(team=team).all()
+            for member in all_members:
+                if len(member.email) == 0:
+                    member.delete()
+            left = 3 - TeamMember.objects.filter(team=team).all().count()
+            while left > 0:
+                left = left - 1
+                TeamMember(team=team, first_name='', last_name='', phone_no='', email='').save()
+            subject = f'Invitation Accepted - Hult Prize'
+            message = f'{first_name} {last_name} has successfully joined your Team {team.team_name}'
+            recipient_list = [team.user.email]
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+            unverified.delete()
+            messages.success(request, 'You have successfully joined the team')
+            return redirect('/')
+        else:
+            return redirect('/')
 
 def handleLogin(request):
     if request.method == 'POST':
