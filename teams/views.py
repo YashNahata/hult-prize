@@ -107,7 +107,11 @@ def leaderInvitation(request, token):
             team = unverified.team
             email = unverified.email
             phone_no = unverified.phone_no
-            if TeamMember.objects.filter(team=team).all().count() == 3:
+            tm_count = 0
+            for i in TeamMember.objects.filter(team=team).all():
+                if len(i.email) != 0:
+                    tm_count += 1
+            if tm_count == 3:
                 messages.error(request, 'Already 4 members in the team')
                 return redirect('/')
             verified = TeamMember(team=team, first_name=first_name, last_name=last_name, email=email, phone_no=phone_no)
