@@ -559,7 +559,7 @@ main .title::after {
   margin-top: 10px;
   margin-right: 5px;
   text-decoration: none;
-  color: rgb(108, 108, 108);
+  color: rgb(230, 0, 127);
   font-size: 20px;
 }
 .timelineLink:hover {

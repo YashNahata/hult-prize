@@ -64,7 +64,7 @@ def createTeam(request):
         if email1 != '':
             token = str(uuid.uuid4())
             subject = f'Invitation to Join Team {team_name} - Hult Prize'
-            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
             recipient_list = [email1]
             send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
             unverified1 = UnverifiedTeamMember(team=teamKey, first_name=fname1, last_name=lname1, email=email1, phone_no=phone1, token=token)
@@ -72,7 +72,7 @@ def createTeam(request):
         if email2 != '':
             token = str(uuid.uuid4())
             subject = f'Invitation to Join Team {team_name} - Hult Prize'
-            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
             recipient_list = [email2]
             send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
             unverified2 = UnverifiedTeamMember(team=teamKey, first_name=fname2, last_name=lname2, email=email2, phone_no=phone2, token=token)
@@ -80,7 +80,7 @@ def createTeam(request):
         if email3 != '':
             token = str(uuid.uuid4())
             subject = f'Invitation to Join Team {team_name} - Hult Prize'
-            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token}'
+            message = f'Invitation to join {request.user.first_name} {request.user.last_name}\'s team. Click on the link to join - https://hult.edcnitd.co.in/leader-invitation/{token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
             recipient_list = [email3]
             send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
             unverified3 = UnverifiedTeamMember(team=teamKey, first_name=fname3, last_name=lname3, email=email3, phone_no=phone3, token=token)
@@ -125,7 +125,7 @@ def leaderInvitation(request, token):
                 left = left - 1
                 TeamMember(team=team, first_name='', last_name='', phone_no='', email='').save()
             subject = f'Invitation Accepted - Hult Prize'
-            message = f'{first_name} {last_name} has successfully joined your Team {team.team_name}'
+            message = f'{first_name} {last_name} has successfully joined your Team {team.team_name} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
             recipient_list = [team.user.email]
             send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
             unverified.delete()
@@ -214,7 +214,7 @@ def token(request):
 
 def sendMail(email, token):
     subject = 'Verify your account - Hult Prize'
-    message = f'Please click the link to verify your account https://hult.edcnitd.co.in/verify/{token}'
+    message = f'Please click the link to verify your account https://hult.edcnitd.co.in/verify/{token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -311,7 +311,7 @@ def joinTeam(request):
             team_leader_email = team.user.email
             if team_from.can_request == True:
                 subject = f'Request to join your team - {request.user.first_name + " " + request.user.last_name}'
-                message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
+                message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
                 email_from = settings.EMAIL_HOST_USER
                 recipient_list = [team_leader_email]
                 send_mail(subject, message, email_from, recipient_list)
@@ -327,7 +327,7 @@ def joinTeam(request):
                 delta = date_now - team_timestamp
                 if delta.days >= 1:
                     subject = f'Request to join your team - {request.user.first_name + " " + request.user.last_name}'
-                    message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token}'
+                    message = f'{request.user.first_name + " " + request.user.last_name} would like to join your team.\nClick on the link to add - https://hult.edcnitd.co.in/accept-invitation/{Team.objects.filter(user=request.user).first().auth_token} \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
                     email_from = settings.EMAIL_HOST_USER
                     recipient_list = [team_leader_email]
                     send_mail(subject, message, email_from, recipient_list)
@@ -435,7 +435,7 @@ def acceptInvitation(request, auth_token):
             team.is_leader = True
             team.save()
             subject = 'Request accepted - Hult Prize'
-            message = f'Your request to join the team, {Team.objects.filter(user=request.user).first().team_name}, has been accepted'
+            message = f'Your request to join the team, {Team.objects.filter(user=request.user).first().team_name}, has been accepted \n\nWith Regards,\nTeam Entrepreneurship Development Cell (EDC NITD)'
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [Team.objects.filter(auth_token=auth_token).first().user.email]
             send_mail(subject, message, email_from, recipient_list)
