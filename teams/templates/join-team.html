@@ -23,6 +23,7 @@
   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
   crossorigin="anonymous"
 />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -56,6 +57,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
           My Team
         </a>
     </div>
+    
     {% if data|length == 0 %}
     <div class="my-5">
       <h2>No teams have been formed yet. Create your own team to get started</h2>
@@ -104,6 +106,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
         </div>
             <div class="leader">
                 <h5 class="leader-name">{{team.leader}}</h5>
+                <i class="fa-solid fa-crown"></i>
             </div>
             <div class="teamMembers">
                 {% for t in team.team_member %}

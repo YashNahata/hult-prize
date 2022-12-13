@@ -60,6 +60,7 @@
   /* background: #99999939; */
   /* color: #0073e6; */
   color: rgb(230, 0, 127);
+  /* color: black; */
 }
 .leader {
   display: flex;
@@ -305,4 +306,7 @@ button:disabled:hover {
   .rightFooter {
     width: 100%;
   }
+}
+.fa-crown {
+  color: #704a97;
 }

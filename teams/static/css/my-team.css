@@ -399,3 +399,8 @@ button:disabled:hover {
     width: 100%;
   }
 }
+
+.fa-solid {
+  color: #704a97;
+  /* margin-bottom: 2px; */
+}
