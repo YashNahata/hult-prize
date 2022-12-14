@@ -114,6 +114,12 @@ def leaderInvitation(request, token):
             if tm_count == 3:
                 messages.error(request, 'Already 4 members in the team')
                 return redirect('/')
+            team_members = TeamMember.objects.filter(team=team).all()
+            for i in team_members:
+                if i.email == email:
+                    unverified.delete()
+                    messages.error(request, 'Email cannot be same')
+                    return redirect('/')
             verified = TeamMember(team=team, first_name=first_name, last_name=last_name, email=email, phone_no=phone_no)
             verified.save()
             all_members = TeamMember.objects.filter(team=team).all()
