@@ -59,8 +59,8 @@
   background-color: rgba(0, 0, 0, 0.05);
   /* background: #99999939; */
   /* color: #0073e6; */
-  /* color: rgb(230, 0, 127); */
-  color: black;
+  color: rgb(230, 0, 127);
+  /* color: black; */
 }
 .leader {
   display: flex;
