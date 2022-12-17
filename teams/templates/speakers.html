@@ -13,7 +13,7 @@
     position: fixed;
   }
   .burger {
-    position: fixed;
+    position: absolute;
     right: 15px;
   }
 </style>
@@ -38,7 +38,8 @@
 <div id="preloader"></div>
 <section>
   {% for speaker in speakers %}
-  <div class="container container-first {% if forloop.counter0|divisibleby:2 %}container-even{% else %}container-odd{% endif %}">
+  {% if forloop.counter0|divisibleby:2 %}
+  <div class="container container-first container-odd my-3">
     <div class="textContent">
       <h1 class="heading">{{ speaker.name }}</h1>
       <p class="content">
@@ -46,97 +47,58 @@
       </p>
     </div>
     <div class="imageContent">
-      <img src="{{ speaker.photo.url }}" />
+      <img src="{{ speaker.photo.url }}" class="img-fluid rounded" />
     </div>
   </div>
-  <div class="accordion container-accordion" id="accordionExample">
+  {% else %}
+  <div class="container container-first container-even my-3">
+    <div class="imageContent">
+      <img src="{{ speaker.photo.url }}" class="img-fluid rounded" />
+    </div>
+    <div class="textContent">
+      <h1 class="heading">{{ speaker.name }}</h1>
+      <p class="content">
+        {{ speaker.about }}
+      </p>
+    </div>
+  </div>
+  {% endif %}
+  
+  <div class="accordion container-accordion my-3" id="accordionExample">
     <!--  -->
+    {% with index=forloop.counter0 %}
+    {% for faqs in data %}
+    {% if forloop.counter0 == index %}
+    {% for faq in faqs %}
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
         <button
           class="accordion-button collapsed"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#collapseOne"
+          data-bs-target="#collapse{{ index }}{{ forloop.counter0 }}"
           aria-expanded="true"
           aria-controls="collapseOne"
         >
-        How to get a substantial edge over your competitors?
+        {{ faq.question }}
         </button>
       </h2>
       <div
-        id="collapseOne"
+        id="collapse{{ index }}{{ forloop.counter0 }}"
         class="accordion-collapse collapse"
         aria-labelledby="headingOne"
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          Do sufficient ground work. Reach out to the common people and try to understand the market 
-          needs and then execute your idea through a well-made plan. You can prepare a detailed 
-          yet attractive presentation with a storyline to not make it monotonous. Keep a prototype 
-          ready if possible, otherwise a good pitch along with an innovative ppt is enough to reach 
-          the Regionals.
+          {{ faq.answer }}
         </div>
       </div>
     </div>
-    <!--  -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseTwo"
-          aria-expanded="false"
-          aria-controls="collapseTwo"
-        >
-        What should be the minimum number of slides in the ppt?
-        </button>
-      </h2>
-      <div
-        id="collapseTwo"
-        class="accordion-collapse collapse"
-        aria-labelledby="headingTwo"
-        data-bs-parent="#accordionExample"
-      >
-        <div class="accordion-body">
-          Do not cram in too much content in one slide. Focus on making presentations more 
-          interactive instead of adding raw data related to ideas.  One way of making 
-          presentation interactive can be by telling some interesting facts related to ideas. 
-          Use photos, videos, audios, animations or anything innovative.
-        </div>
-      </div>
-    </div>
-    <!--  -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseThree"
-          aria-expanded="false"
-          aria-controls="collapseThree"
-        >
-        Should one focus more on innovative ideas or commercially feasible ones?
-        </button>
-      </h2>
-      <div
-        id="collapseThree"
-        class="accordion-collapse collapse"
-        aria-labelledby="headingThree"
-        data-bs-parent="#accordionExample"
-      >
-        <div class="accordion-body">
-          No idea is absolutely out of the box but is inspired by some already existing models. 
-          Thus, a commercially feasible and profitable idea having some upgraded features 
-          that solves and eliminate the existing bugs would be preferable. Before you launch 
-          your product or sell your idea, know your competitors well so that you can sail 
-          through the high tides and lows the challenging market throws.
-        </div>
-      </div>
-    </div>
-  </div>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+</div>
   {% endfor %}
 </section>
 
@@ -204,14 +166,18 @@
     </div>
     <div class="usefulLinks">
       <ul>
-        <li><a href="#" target="_blank" rel="noopener noreferrer">Home</a></li>
+        <li><a href="/" rel="noopener noreferrer">Home</a></li>
       </ul>
       <ul>
-        {% comment %} <li>
-          <a href="/FAQs.html" target="_blank" rel="noopener noreferrer"
-            >FAQs</a
-          >
-        </li> {% endcomment %}
+        <li>
+          <a href="https://www.edcnitd.co.in/" target="_blank" rel="noopener noreferrer">EDC</a>
+        </li>
+      </ul>
+      <ul>
+        <li><a href="/signup" rel="noopener noreferrer">Register</a></li>
+      </ul>
+      <ul>
+        <li><a href="/login" rel="noopener noreferrer">Login</a></li>
       </ul>
     </div>
   </div>

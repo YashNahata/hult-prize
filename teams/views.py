@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
-from .models import Team, TeamMember, Faq, Speaker, UnverifiedTeamMember
+from .models import Team, TeamMember, Faq, Speaker, UnverifiedTeamMember, SpeakersFaq
 from datetime import datetime
 
 def home(request):
@@ -306,7 +306,17 @@ def faqs(request):
 
 def speakers(request):
     speakers = Speaker.objects.all()
-    return render(request, 'speakers.html', { 'speakers': speakers })
+    data = []
+    for i in speakers:
+        faqs = SpeakersFaq.objects.filter(speaker=i).all()
+        faq = []
+        for q in faqs:
+            faq.append({
+                'question': q.question,
+                'answer': q.answer
+            })
+        data.append(faq)
+    return render(request, 'speakers.html', { 'speakers': speakers, 'data': data })
 
 def joinTeam(request):
     if request.method == 'POST':

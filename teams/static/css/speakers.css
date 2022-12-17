@@ -6,22 +6,22 @@
   width: 80%;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  /* padding: 15px; */
 }
 .accordion-body {
   font-size: small;
 }
 .accordion-button:focus {
   box-shadow: none;
-  border-color: rgb(230, 0, 127);
+  /* border-color: rgb(230, 0, 127); */
+  box-shadow: 0 0 0 0.25rem rgba(230, 0, 127, 0.175);
 }
 .accordion-button {
-  background-color: rgba(215, 215, 215, 0.267);
+  /* background-color: rgba(215, 215, 215, 0.267); */
+  background-color: white;
 }
 .accordion-button:not(.collapsed) {
-  background-color: rgba(176, 176, 176, 0.361);
+  /* background-color: rgba(176, 176, 176, 0.361); */
+  background-color: rgba(230, 0, 127, 0.09);
   color: black;
-}
-.container-odd {
-  flex-direction: row-reverse;
 }
