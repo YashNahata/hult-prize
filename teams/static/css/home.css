@@ -491,6 +491,7 @@ main .title::after {
 .timeline:nth-child(odd) {
   border-right: 3px solid;
   padding-left: 0;
+  text-align: right;
 }
 .timeline:nth-child(odd):before {
   left: 100%;
