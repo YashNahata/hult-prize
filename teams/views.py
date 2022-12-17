@@ -288,7 +288,7 @@ def teamsCSV(request):
                 ]
             )
         for team in Team.objects.all():
-            if TeamMember.objects.filter(team=team).all().count() == 0:
+            if TeamMember.objects.filter(team=team).all().count() == 0 and TeamMember.objects.filter(email=team.user.email).all().count() == 0:
                 writer.writerow(
                     [
                         team.user.first_name + " " + team.user.last_name,
