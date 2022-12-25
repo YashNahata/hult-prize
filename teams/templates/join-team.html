@@ -47,12 +47,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
 <!-- preloader -->
 <div id="preloader"></div>
 
-
+{% comment %} Registration closed {% endcomment %}
+{% with registration_closed="true" %}
+{% comment %}  {% endcomment %}
 <div class="container">
     <div class="button createBtn">
-        <a href="/create-team">
+      {% comment %} Registration closed {% endcomment %}
+        <a href="/create-team" title="Registration is now closed" style="background-color:#ffcbe7;pointer-events:none;cursor:not-allowed;">
             Create Team
         </a>
+        {% comment %}  {% endcomment %}
         <a href="/my-team">
           My Team
         </a>
@@ -70,7 +74,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
             <div class="badge badge-leader">
                 <p>{{team.team_name}}</p>
             </div>
-            {% if team.no_of_members == 3 %}
+            {% comment %} Registration closed {% endcomment %}
+            {% if registration_closed == "true" %}
+            {% comment %}  {% endcomment %}
+            {% elif team.no_of_members == 3 %}
             {% comment %} <form action="/join-team" method="POST" class="button">
                 {% csrf_token %}
                 <input value="{{ team.auth_token }}" name="auth_token" hidden>
@@ -118,6 +125,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
     </div>
     {% endif %}
 </div>
+{% comment %} Registration closed {% endcomment %}
+{% endwith %}
+{% comment %}  {% endcomment %}
 
 <!-- FOOTER -->
 <footer class="footer">
