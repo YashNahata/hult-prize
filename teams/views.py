@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponse, redirect, render
-from .models import Team, TeamMember, Faq, Speaker, UnverifiedTeamMember
+from .models import Team, TeamMember, Faq, Speaker, UnverifiedTeamMember, SpeakersFaq
 from datetime import datetime
 
 def home(request):
@@ -21,6 +21,10 @@ def team(request):
 
 def createTeam(request):
     if request.method == "POST":
+        # Registration closed
+        messages.warning(request, 'Registration is now closed')
+        return redirect('/join-team')
+        #
         team_name = request.POST.get('team_name')
         if team_name == '':
             messages.error(request, 'Team name is required')
@@ -92,6 +96,10 @@ def createTeam(request):
         messages.warning(request, 'After the invitation has been accepted, it will be visible here')
         return redirect('/create-team')
     if request.user.is_authenticated:
+        # Registration closed
+        messages.warning(request, 'Registration is now closed')
+        return redirect('/join-team')
+        #
         team = Team.objects.filter(user=request.user).first()
         team_members = TeamMember.objects.filter(team=team).all()
         return render(request, 'create-team.html', { 'team_members': team_members, 'team': team })
@@ -180,6 +188,10 @@ def handleLogout(request):
 
 def handleSignUp(request):
     if request.method == 'POST':
+        # Registration closed
+        messages.warning(request, 'Registration is now closed')
+        return redirect('/')
+        #
         username = request.POST.get('username')
         email = request.POST.get('email')
         first_name = request.POST.get('first_name')
@@ -213,6 +225,10 @@ def handleSignUp(request):
         if request.user.is_authenticated:
             return redirect('/create-team')
         else:
+            # Registration closed
+            messages.warning(request, 'Registration is now closed')
+            return redirect('/login')
+            #
             return render(request, 'signup.html')
 
 def token(request):
@@ -288,7 +304,7 @@ def teamsCSV(request):
                 ]
             )
         for team in Team.objects.all():
-            if TeamMember.objects.filter(team=team).all().count() == 0:
+            if TeamMember.objects.filter(team=team).all().count() == 0 and TeamMember.objects.filter(email=team.user.email).all().count() == 0:
                 writer.writerow(
                     [
                         team.user.first_name + " " + team.user.last_name,
@@ -306,10 +322,24 @@ def faqs(request):
 
 def speakers(request):
     speakers = Speaker.objects.all()
-    return render(request, 'speakers.html', { 'speakers': speakers })
+    data = []
+    for i in speakers:
+        faqs = SpeakersFaq.objects.filter(speaker=i).all()
+        faq = []
+        for q in faqs:
+            faq.append({
+                'question': q.question,
+                'answer': q.answer
+            })
+        data.append(faq)
+    return render(request, 'speakers.html', { 'speakers': speakers, 'data': data })
 
 def joinTeam(request):
     if request.method == 'POST':
+        # Registration closed
+        messages.warning(request, 'Registration is now closed')
+        return redirect('/join-team')
+        #
         if Team.objects.filter(user=request.user).first().is_leader == False:
             auth_token = request.POST.get('auth_token')
             team = Team.objects.filter(auth_token=auth_token).first()
@@ -389,6 +419,9 @@ def joinTeam(request):
                         'can_request': can_request,
                         'no_of_members': no_of_members
                     })
+            # Registration closed
+            messages.warning(request, 'Registration is now closed')
+            # 
             return render(request, 'join-team.html', { 'data': data })
         else:
             return redirect('/')
