@@ -70,6 +70,7 @@
   padding-left: 2px;
   font-size: 16px;
   margin-bottom: 10px;
+  text-align: justify;
 }
 
 .imageContent {
@@ -106,7 +107,7 @@
     text-align: left;
   }
   .content {
-    text-align: left;
+    text-align: justify;
     padding-top: 5px;
   }
   .textContent {
@@ -317,7 +318,7 @@
 .swiperContent p {
   font-size: 16px;
   margin-top: 5px;
-  text-align: left;
+  text-align: justify;
   position: relative;
 }
 .title {
